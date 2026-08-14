@@ -1,4 +1,5 @@
 import { LineChart, Line, ResponsiveContainer } from 'recharts';
+import { HiArrowSmUp, HiArrowSmDown } from 'react-icons/hi';
 
 interface Props {
   label: string;
@@ -33,8 +34,8 @@ export function KpiCard({ label, value, delta, up, color, sparkColor, data }: Pr
     <div className="card p-2.5 flex flex-col gap-0.5 min-w-0">
       <div className="flex items-start justify-between gap-1.5">
         <span className="text-[10px] text-gray-400 truncate leading-tight">{label}</span>
-        <div className={`flex items-center gap-0.5 text-[10px] font-semibold whitespace-nowrap shrink-0 ${DELTA_COLORS[color]}`}>
-          <span className="text-[8px] leading-none">{up ? '▲' : '▼'}</span>
+        <div className={`flex items-center gap-0 text-[10px] font-semibold whitespace-nowrap shrink-0 ${DELTA_COLORS[color]}`}>
+          {up ? <HiArrowSmUp size={12} /> : <HiArrowSmDown size={12} />}
           <span>{delta}</span>
         </div>
       </div>

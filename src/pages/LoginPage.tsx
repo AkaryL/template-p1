@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Mail, Lock, ArrowRight, Radio, Eye, EyeOff } from 'lucide-react';
+import { HiOutlineMail, HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeOff, HiOutlineArrowRight } from 'react-icons/hi';
 
 export function LoginPage() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('analista@eleccion27.mx');
+  const [email, setEmail] = useState('cari@datistics.mx');
   const [password, setPassword] = useState('••••••••••');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -12,73 +12,74 @@ export function LoginPage() {
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      navigate('/');
-    }, 700);
+    setTimeout(() => navigate('/'), 500);
   };
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
-      style={{
-        background: 'radial-gradient(ellipse at top left, rgba(139, 92, 246, 0.15), transparent 60%), radial-gradient(ellipse at bottom right, rgba(6, 182, 212, 0.1), transparent 60%), #0b0e14',
-      }}
-    >
-      <div className="absolute inset-0 pointer-events-none opacity-30" style={{
-        backgroundImage: 'linear-gradient(rgba(139, 92, 246, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(139, 92, 246, 0.08) 1px, transparent 1px)',
-        backgroundSize: '40px 40px',
-      }} />
-
-      <div className="relative w-full max-w-md px-6">
-        <div className="flex items-center justify-center gap-2 mb-8">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-violet-500 via-fuchsia-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-violet-500/30">
-            <div className="w-3.5 h-3.5 rounded-sm bg-white/90" />
+    <div className="min-h-screen flex bg-[#0b0e14]">
+      <div className="hidden lg:flex flex-1 relative overflow-hidden border-r border-[#1a1f2b]">
+        <div
+          className="absolute inset-0 opacity-40"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)',
+            backgroundSize: '48px 48px',
+          }}
+        />
+        <div className="relative m-auto max-w-sm px-8">
+          <div className="flex items-baseline gap-1 mb-8">
+            <span className="text-white font-black tracking-[-0.02em] text-3xl leading-none">
+              Elección
+            </span>
+            <span className="text-red-500 font-black tracking-[-0.02em] text-3xl leading-none">
+              27
+            </span>
           </div>
-          <span className="text-white font-black tracking-tight text-2xl">
-            ELECCION
-            <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">27</span>
-          </span>
+          <p className="text-gray-300 text-lg leading-snug mb-4">
+            Monitoreo de figuras políticas en redes, prensa y medios digitales.
+          </p>
+          <p className="text-gray-500 text-sm leading-relaxed">
+            Sentimiento, alertas, cobertura y competencia. Todo en un solo lugar, actualizado en tiempo real.
+          </p>
+          <div className="mt-10 pt-6 border-t border-[#1a1f2b]">
+            <p className="text-gray-500 text-xs">Un producto de <span className="text-gray-300 font-medium">Datistics</span></p>
+          </div>
         </div>
+      </div>
 
-        <div className="card p-7">
-          <div className="flex items-center justify-center gap-1.5 mb-5">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-red-500/10 border border-red-500/30">
-              <span className="relative flex items-center justify-center">
-                <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
-                <span className="absolute w-1.5 h-1.5 rounded-full bg-red-500 animate-ping opacity-75" />
-              </span>
-              <span className="text-red-400 text-[10px] font-bold tracking-wider">WAR ROOM ACTIVO</span>
-              <Radio size={10} className="text-red-400" />
-            </div>
+      <div className="w-full lg:w-[440px] flex items-center justify-center px-6 py-10">
+        <div className="w-full max-w-sm">
+          <div className="lg:hidden flex items-baseline gap-1 mb-8 justify-center">
+            <span className="text-white font-black text-2xl">Elección</span>
+            <span className="text-red-500 font-black text-2xl">27</span>
           </div>
 
-          <h1 className="text-white text-xl font-bold text-center mb-1">Bienvenido, Analista</h1>
-          <p className="text-gray-400 text-sm text-center mb-6">Ingresa a tu tablero de monitoreo</p>
+          <h1 className="text-white text-[22px] font-bold tracking-tight">Iniciar sesión</h1>
+          <p className="text-gray-500 text-sm mt-1">Ingresa con tu cuenta de analista.</p>
 
-          <form onSubmit={submit} className="flex flex-col gap-3">
-            <label className="flex flex-col gap-1">
-              <span className="text-[11px] text-gray-400 uppercase tracking-wider">Correo</span>
+          <form onSubmit={submit} className="flex flex-col gap-3 mt-6">
+            <label className="flex flex-col gap-1.5">
+              <span className="text-[11px] text-gray-400 font-medium">Correo</span>
               <div className="relative">
-                <Mail size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+                <HiOutlineMail size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2.5 rounded-lg bg-[#0f131c] border border-[#232a3a] text-gray-200 text-sm focus:outline-none focus:border-violet-500/60 focus:ring-2 focus:ring-violet-500/20 transition-all"
+                  className="w-full pl-9 pr-3 py-2.5 rounded-md bg-[#0f131c] border border-[#232a3a] text-gray-200 text-sm focus:outline-none focus:border-violet-500/60 focus:ring-1 focus:ring-violet-500/30 transition"
                   required
                 />
               </div>
             </label>
 
-            <label className="flex flex-col gap-1">
-              <span className="text-[11px] text-gray-400 uppercase tracking-wider">Contraseña</span>
+            <label className="flex flex-col gap-1.5">
+              <span className="text-[11px] text-gray-400 font-medium">Contraseña</span>
               <div className="relative">
-                <Lock size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+                <HiOutlineLockClosed size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-9 pr-9 py-2.5 rounded-lg bg-[#0f131c] border border-[#232a3a] text-gray-200 text-sm focus:outline-none focus:border-violet-500/60 focus:ring-2 focus:ring-violet-500/20 transition-all"
+                  className="w-full pl-9 pr-9 py-2.5 rounded-md bg-[#0f131c] border border-[#232a3a] text-gray-200 text-sm focus:outline-none focus:border-violet-500/60 focus:ring-1 focus:ring-violet-500/30 transition"
                   required
                 />
                 <button
@@ -86,47 +87,39 @@ export function LoginPage() {
                   onClick={() => setShowPassword((s) => !s)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300"
                 >
-                  {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
+                  {showPassword ? <HiOutlineEyeOff size={15} /> : <HiOutlineEye size={15} />}
                 </button>
               </div>
             </label>
 
-            <div className="flex items-center justify-between mt-1 mb-2">
+            <div className="flex items-center justify-between mt-1">
               <label className="flex items-center gap-1.5 text-[12px] text-gray-400 cursor-pointer">
                 <input type="checkbox" className="accent-violet-500" defaultChecked />
-                <span>Recordarme</span>
+                <span>Mantener sesión iniciada</span>
               </label>
               <a href="#" className="text-[12px] text-violet-400 hover:text-violet-300">
-                ¿Olvidaste tu contraseña?
+                Recuperar acceso
               </a>
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-violet-500 to-cyan-500 text-white text-sm font-semibold hover:from-violet-600 hover:to-cyan-600 transition-all disabled:opacity-60 shadow-lg shadow-violet-500/20"
+              className="mt-3 w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-md bg-violet-600 text-white text-sm font-semibold hover:bg-violet-500 transition disabled:opacity-60"
             >
-              {loading ? (
-                <span>Autenticando...</span>
-              ) : (
+              {loading ? 'Verificando…' : (
                 <>
-                  <span>Ingresar al War Room</span>
-                  <ArrowRight size={15} />
+                  <span>Entrar</span>
+                  <HiOutlineArrowRight size={15} />
                 </>
               )}
             </button>
           </form>
 
-          <div className="mt-5 pt-4 border-t border-[#1a1f2b] text-center">
-            <p className="text-[11px] text-gray-500">
-              Acceso restringido · Sesión monitoreada · v1.0.0
-            </p>
-          </div>
+          <p className="mt-6 text-[11px] text-gray-600 text-center">
+            v1.0.0 · Sesiones auditadas
+          </p>
         </div>
-
-        <p className="text-center text-[11px] text-gray-600 mt-6">
-          © 2026 ELECCION27 · Powered by Datistics
-        </p>
       </div>
     </div>
   );

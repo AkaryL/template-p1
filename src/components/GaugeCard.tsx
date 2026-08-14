@@ -1,4 +1,5 @@
 import { Info, HelpCircle } from 'lucide-react';
+import { HiArrowSmUp } from 'react-icons/hi';
 
 interface Props {
   title: string;
@@ -24,8 +25,8 @@ export function GaugeCard({ title, value, max = 100, trend, trendLabel, variant,
       {variant === 'momentum' ? (
         <div className="flex-1 flex flex-col items-center justify-center gap-1">
           <MomentumRing value={value} max={max} />
-          <div className="flex items-center gap-1 text-emerald-400 text-[11px] font-semibold whitespace-nowrap mt-1">
-            <span className="text-[9px]">▲</span>
+          <div className="flex items-center gap-0 text-emerald-400 text-[11px] font-semibold whitespace-nowrap mt-1">
+            <HiArrowSmUp size={13} />
             <span>{trend}</span>
           </div>
           <p className="text-[10px] text-gray-400 leading-tight text-center">{trendLabel}</p>

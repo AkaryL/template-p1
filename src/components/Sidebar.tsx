@@ -1,22 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import {
-  LayoutGrid,
-  Heart,
-  Newspaper,
-  Bell,
-  ChevronDown,
-  Download,
-  Radio,
-  LogOut,
-  User,
-} from 'lucide-react';
+import { HiOutlineViewGrid, HiOutlineChartBar, HiOutlineNewspaper, HiOutlineBell, HiOutlineChevronDown, HiOutlineDownload, HiOutlineLogout, HiOutlineUser } from 'react-icons/hi';
 
 const NAV = [
-  { id: 'resumen', label: 'Resumen', Icon: LayoutGrid, to: '/' },
-  { id: 'sentimiento', label: 'Sentimiento', Icon: Heart, to: '/sentimiento' },
-  { id: 'noticias', label: 'Noticias', Icon: Newspaper, to: '/noticias' },
-  { id: 'alertas', label: 'Alertas', Icon: Bell, to: '/alertas', badge: 3 },
+  { id: 'resumen', label: 'Resumen', Icon: HiOutlineViewGrid, to: '/' },
+  { id: 'sentimiento', label: 'Sentimiento', Icon: HiOutlineChartBar, to: '/sentimiento' },
+  { id: 'noticias', label: 'Noticias', Icon: HiOutlineNewspaper, to: '/noticias' },
+  { id: 'alertas', label: 'Alertas', Icon: HiOutlineBell, to: '/alertas', badge: 3 },
 ];
 
 export function Sidebar() {
@@ -37,24 +27,21 @@ export function Sidebar() {
 
   return (
     <aside className="w-[190px] shrink-0 h-screen flex flex-col bg-[#0b0e14] border-r border-[#1a1f2b] px-3 py-3 overflow-hidden">
-      <div className="flex items-center gap-1.5 mb-2.5">
-        <div className="w-6 h-6 rounded-md bg-gradient-to-br from-violet-500 via-fuchsia-500 to-cyan-400 flex items-center justify-center shadow shadow-violet-500/20">
-          <div className="w-2 h-2 rounded-sm bg-white/90" />
-        </div>
-        <span className="text-white font-black tracking-tight text-[14px]">
-          ELECCION<span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">27</span>
+      <div className="flex items-baseline gap-1 mb-3">
+        <span className="text-white font-black tracking-[-0.02em] text-[18px] leading-none">
+          Elección
+        </span>
+        <span className="text-red-500 font-black tracking-[-0.02em] text-[18px] leading-none">
+          27
         </span>
       </div>
 
-      <div className="mb-2">
-        <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-red-500/10 border border-red-500/30">
-          <span className="relative flex items-center justify-center">
-            <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
-            <span className="absolute w-1.5 h-1.5 rounded-full bg-red-500 animate-ping opacity-75" />
-          </span>
-          <span className="text-red-400 text-[10px] font-bold tracking-wider">EN VIVO</span>
-          <Radio size={10} className="text-red-400" />
-        </div>
+      <div className="mb-2 flex items-center gap-1.5">
+        <span className="relative flex items-center justify-center">
+          <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
+          <span className="absolute w-1.5 h-1.5 rounded-full bg-red-500 animate-ping opacity-75" />
+        </span>
+        <span className="text-red-400 text-[10px] font-semibold tracking-wide uppercase">En vivo</span>
       </div>
 
       <div className="mb-3">
@@ -100,7 +87,7 @@ export function Sidebar() {
               }}
               className="w-full flex items-center gap-2 px-3 py-2 text-[12px] text-gray-300 hover:bg-white/5 transition-colors"
             >
-              <User size={13} />
+              <HiOutlineUser size={14} />
               <span>Mi perfil</span>
             </button>
             <div className="border-t border-[#232a3a]" />
@@ -111,7 +98,7 @@ export function Sidebar() {
               }}
               className="w-full flex items-center gap-2 px-3 py-2 text-[12px] text-red-400 hover:bg-red-500/10 transition-colors"
             >
-              <LogOut size={13} />
+              <HiOutlineLogout size={14} />
               <span>Cerrar sesión</span>
             </button>
           </div>
@@ -127,15 +114,15 @@ export function Sidebar() {
             <p className="text-[9px] text-gray-500 leading-tight">Analista</p>
             <p className="text-[11px] text-gray-200 font-medium truncate">War Room</p>
           </div>
-          <ChevronDown
-            size={13}
+          <HiOutlineChevronDown
+            size={14}
             className={`text-gray-500 transition-transform ${menuOpen ? 'rotate-180' : ''}`}
           />
         </button>
       </div>
 
       <button className="mt-2 w-full flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-lg bg-[#141824] border border-[#232a3a] text-gray-300 text-[11px] hover:bg-[#1a1f2b] transition-colors">
-        <Download size={12} />
+        <HiOutlineDownload size={13} />
         <span>Exportar reporte</span>
       </button>
     </aside>
