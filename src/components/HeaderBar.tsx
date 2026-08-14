@@ -38,11 +38,13 @@ export function HeaderBar() {
         </div>
       </div>
 
-      <div className="flex items-stretch gap-2">
-        <Chip label="Coalición" value={candidate.coalicion} dot="bg-blue-400" />
-        <Chip label="Elección" value={candidate.eleccion} dot="bg-emerald-400" />
-        <Chip
-          label="Días para la elección"
+      <div className="card px-4 py-2 flex items-center gap-5 self-start">
+        <ChipItem label="Coalición" value={candidate.coalicion} dot="bg-blue-400" />
+        <span className="w-px h-8 bg-[#232a3a]" />
+        <ChipItem label="Elección" value={candidate.eleccion} dot="bg-emerald-400" />
+        <span className="w-px h-8 bg-[#232a3a]" />
+        <ChipItem
+          label="Días restantes"
           value={`${candidate.diasParaEleccion} días`}
           valueClass="text-red-400"
         />
@@ -51,7 +53,7 @@ export function HeaderBar() {
   );
 }
 
-function Chip({
+function ChipItem({
   label,
   value,
   dot,
@@ -63,11 +65,11 @@ function Chip({
   valueClass?: string;
 }) {
   return (
-    <div className="card px-2.5 py-1.5 flex flex-col whitespace-nowrap">
+    <div className="flex flex-col whitespace-nowrap leading-tight">
       <span className="text-[9px] text-gray-500 uppercase tracking-wider">{label}</span>
       <div className="flex items-center gap-1.5 mt-0.5">
         {dot && <span className={`w-1.5 h-1.5 rounded-full ${dot}`} />}
-        <span className={`text-[12px] font-medium ${valueClass ?? 'text-gray-200'}`}>{value}</span>
+        <span className={`text-[13px] font-semibold ${valueClass ?? 'text-gray-100'}`}>{value}</span>
       </div>
     </div>
   );

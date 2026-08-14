@@ -1,4 +1,4 @@
-import { Info, HelpCircle } from 'lucide-react';
+import { HiOutlineInformationCircle, HiOutlineQuestionMarkCircle } from 'react-icons/hi';
 import { HiArrowSmUp } from 'react-icons/hi';
 
 interface Props {
@@ -14,28 +14,33 @@ interface Props {
 export function GaugeCard({ title, value, max = 100, trend, trendLabel, variant, riskLabel }: Props) {
   return (
     <div className="card p-3 h-full flex flex-col">
-      <div className="flex items-center justify-between mb-1.5 gap-1">
-        <span className="text-[11px] text-gray-300 whitespace-nowrap truncate">{title}</span>
+      <div className="flex items-center justify-between mb-2 gap-1">
+        <span className="text-[11px] text-gray-400 whitespace-nowrap truncate">{title}</span>
         {variant === 'momentum' ? (
-          <HelpCircle size={13} className="text-gray-500 shrink-0" />
+          <HiOutlineQuestionMarkCircle size={14} className="text-gray-600 shrink-0" />
         ) : (
-          <Info size={13} className="text-gray-500 shrink-0" />
+          <HiOutlineInformationCircle size={14} className="text-gray-600 shrink-0" />
         )}
       </div>
+
       {variant === 'momentum' ? (
-        <div className="flex-1 flex flex-col items-center justify-center gap-1">
+        <div className="flex-1 flex items-center justify-center gap-3">
           <MomentumRing value={value} max={max} />
-          <div className="flex items-center gap-0 text-emerald-400 text-[11px] font-semibold whitespace-nowrap mt-1">
-            <HiArrowSmUp size={13} />
-            <span>{trend}</span>
+          <div className="flex flex-col">
+            <div className="flex items-center gap-0 text-emerald-400 text-[13px] font-bold whitespace-nowrap leading-none">
+              <HiArrowSmUp size={14} />
+              <span>{trend}</span>
+            </div>
+            <p className="text-[10px] text-gray-500 mt-1 leading-tight max-w-[70px]">{trendLabel}</p>
           </div>
-          <p className="text-[10px] text-gray-400 leading-tight text-center">{trendLabel}</p>
         </div>
       ) : (
-        <div className="flex-1 flex flex-col items-center justify-center">
+        <div className="flex-1 flex flex-col items-center justify-center gap-1">
           <RiskGauge value={value} max={max} />
-          <p className="text-orange-400 font-bold tracking-widest text-[13px] mt-1">{riskLabel}</p>
-          <p className="text-[10px] text-gray-500 mt-0.5">{value}/{max}</p>
+          <div className="flex items-baseline gap-2 mt-0.5">
+            <span className="text-orange-400 font-black tracking-wider text-[14px] leading-none">{riskLabel}</span>
+            <span className="text-[11px] text-gray-500 leading-none">{value}/{max}</span>
+          </div>
         </div>
       )}
     </div>
@@ -44,17 +49,17 @@ export function GaugeCard({ title, value, max = 100, trend, trendLabel, variant,
 
 function MomentumRing({ value, max }: { value: number; max: number }) {
   const pct = value / max;
-  const r = 32;
+  const r = 30;
   const c = 2 * Math.PI * r;
   const offset = c * (1 - pct);
 
   return (
-    <div className="relative w-[86px] h-[86px] shrink-0">
-      <svg width="86" height="86" className="-rotate-90">
-        <circle cx="43" cy="43" r={r} stroke="#1f2533" strokeWidth="7" fill="none" />
+    <div className="relative w-[80px] h-[80px] shrink-0">
+      <svg width="80" height="80" className="-rotate-90">
+        <circle cx="40" cy="40" r={r} stroke="#1f2533" strokeWidth="7" fill="none" />
         <circle
-          cx="43"
-          cy="43"
+          cx="40"
+          cy="40"
           r={r}
           stroke="url(#momentumGrad)"
           strokeWidth="7"
@@ -71,8 +76,8 @@ function MomentumRing({ value, max }: { value: number; max: number }) {
         </defs>
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-white text-xl font-bold leading-none">{value}</span>
-        <span className="text-[10px] text-gray-500 mt-0.5">/{max}</span>
+        <span className="text-white text-[22px] font-bold leading-none">{value}</span>
+        <span className="text-[9px] text-gray-500 mt-0.5">de {max}</span>
       </div>
     </div>
   );

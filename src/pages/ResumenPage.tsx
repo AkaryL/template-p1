@@ -14,7 +14,7 @@ import { kpis, sparks } from '../data/mockData';
 export function ResumenPage() {
   return (
     <div className="p-2.5 flex flex-col gap-2.5">
-      <div className="grid gap-2.5" style={{ gridTemplateColumns: '1fr 160px 160px' }}>
+      <div className="grid gap-2.5" style={{ gridTemplateColumns: '1fr 180px 180px' }}>
         <HeaderBar />
         <GaugeCard
           title="Índice de Momentum"
