@@ -195,48 +195,48 @@ export const allNews = [
 
 export const allAlerts = [
   {
-    title: 'Alerta Naranja · Transporte Público',
-    description: 'Crecimiento rápido en la conversación negativa. Velocidad: 38% en la última hora. Volumen actual: 2,340 menciones.',
+    title: 'Alerta Naranja · Seguridad ZMG',
+    description: 'Crecimiento rápido en la conversación negativa sobre inseguridad en Guadalajara y Zapopan. Velocidad: 38% en la última hora. Volumen actual: 2,340 menciones.',
     time: 'Hace 15 min',
     severity: 'orange',
-    zone: 'Nacional',
+    zone: 'Zona Metropolitana',
     trend: '+38%',
   },
   {
-    title: 'Alerta Amarilla · Seguridad',
-    description: 'Video crítico comienza a tomar alcance en redes sociales. 12,500 views en 40 minutos.',
+    title: 'Alerta Amarilla · TikTok crítico',
+    description: 'Video crítico sobre José Eduardo Torres comienza a tomar alcance con creadores locales. 12,500 views en 40 minutos.',
     time: 'Hace 42 min',
     severity: 'yellow',
-    zone: 'Guerrero',
+    zone: 'Guadalajara',
     trend: '+22%',
   },
   {
     title: 'Alerta Informativa · Competencia',
-    description: 'Competidor A anunció evento masivo para mañana en tu bastión. Estimado: 5,000 asistentes.',
+    description: 'Aspirante rival anunció recorrido masivo para mañana en Zapopan. Estimado: 5,000 asistentes.',
     time: 'Hace 1 h',
     severity: 'blue',
-    zone: 'Chilpancingo',
+    zone: 'Zapopan',
     trend: '—',
   },
   {
-    title: 'Alerta Amarilla · Menciones negativas',
-    description: 'Incremento en menciones negativas sobre financiamiento. Origen: cuentas de derecha en X.',
+    title: 'Alerta Amarilla · Financiamiento',
+    description: 'Incremento en menciones negativas sobre origen de recursos para spots digitales. Origen: cuentas críticas en X.',
     time: 'Hace 2 h',
     severity: 'yellow',
-    zone: 'Nacional',
+    zone: 'Digital',
     trend: '+18%',
   },
   {
     title: 'Alerta Informativa · Prensa',
-    description: 'El Universal publica investigación sobre trayectoria política. Tono neutral.',
+    description: 'El Informador publica reportaje sobre trayectoria y equipo cercano de Torres. Tono neutral.',
     time: 'Hace 3 h',
     severity: 'blue',
-    zone: 'Nacional',
+    zone: 'Jalisco',
     trend: '—',
   },
   {
     title: 'Alerta Naranja · Ataque coordinado',
-    description: 'Detectada campaña coordinada de desinformación con hashtag #FueraDamian. 89 cuentas identificadas.',
+    description: 'Detectada campaña coordinada de desinformación con hashtag #NoAlAspiranteTorres. 89 cuentas identificadas en X.',
     time: 'Hace 4 h',
     severity: 'orange',
     zone: 'Digital',
@@ -245,21 +245,21 @@ export const allAlerts = [
 ] as const;
 
 export const sentimentByRegion = [
-  { region: 'Guerrero', positive: 62, neutral: 22, negative: 16 },
-  { region: 'Ciudad de México', positive: 45, neutral: 30, negative: 25 },
-  { region: 'Morelos', positive: 58, neutral: 24, negative: 18 },
-  { region: 'Oaxaca', positive: 51, neutral: 27, negative: 22 },
-  { region: 'Puebla', positive: 43, neutral: 31, negative: 26 },
-  { region: 'Estado de México', positive: 39, neutral: 33, negative: 28 },
+  { region: 'Guadalajara', positive: 64, neutral: 22, negative: 14 },
+  { region: 'Zapopan', positive: 58, neutral: 24, negative: 18 },
+  { region: 'Tlaquepaque', positive: 52, neutral: 26, negative: 22 },
+  { region: 'Tonalá', positive: 47, neutral: 28, negative: 25 },
+  { region: 'Tlajomulco', positive: 44, neutral: 30, negative: 26 },
+  { region: 'El Salto', positive: 39, neutral: 32, negative: 29 },
 ];
 
 export const sentimentByTopic = [
-  { topic: 'Seguridad', positive: 71, neutral: 15, negative: 14 },
-  { topic: 'Economía', positive: 60, neutral: 23, negative: 17 },
-  { topic: 'Educación', positive: 68, neutral: 20, negative: 12 },
-  { topic: 'Transporte', positive: 22, neutral: 15, negative: 63 },
-  { topic: 'Salud', positive: 55, neutral: 25, negative: 20 },
-  { topic: 'Corrupción', positive: 32, neutral: 30, negative: 38 },
+  { topic: 'Movilidad', positive: 68, neutral: 18, negative: 14 },
+  { topic: 'Empleo', positive: 60, neutral: 23, negative: 17 },
+  { topic: 'Educación', positive: 62, neutral: 22, negative: 16 },
+  { topic: 'Seguridad', positive: 28, neutral: 30, negative: 42 },
+  { topic: 'Corrupción', positive: 24, neutral: 21, negative: 55 },
+  { topic: 'Servicios públicos', positive: 45, neutral: 30, negative: 25 },
 ];
 
 export const analyst = {
