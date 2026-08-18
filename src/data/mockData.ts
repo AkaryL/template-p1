@@ -1,12 +1,12 @@
 export const candidate = {
-  name: 'Esthela Damián Peralta',
-  role: 'Candidata a la Gubernatura',
+  name: 'José Eduardo Torres',
+  role: 'Aspirante a la Alcaldía de Guadalajara',
   verified: true,
-  coalicion: 'Fuerza por Guerrero',
-  eleccion: 'Gubernatura 2027',
-  diasParaEleccion: 87,
-  photoInitials: 'ED',
-  photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Foto_de_Perfil_Esthela_Dami%C3%A1n_%28cropped%29.jpg/250px-Foto_de_Perfil_Esthela_Dami%C3%A1n_%28cropped%29.jpg',
+  coalicion: 'Equipo GDL',
+  eleccion: 'Municipal 2027',
+  diasParaEleccion: 124,
+  photoInitials: 'JE',
+  photoUrl: '',
 };
 
 export const kpis = [
@@ -56,31 +56,31 @@ export const platforms = [
 
 export const topNews = [
   {
-    title: 'Esthela Damián presenta plan de seguridad estatal',
-    source: 'El Sur de Guerrero',
+    title: 'José Eduardo Torres presenta plan de movilidad para Guadalajara',
+    source: 'Milenio Jalisco',
     time: '10:02 AM',
     sentiment: 'POSITIVA' as const,
   },
   {
-    title: 'Críticas por declaración sobre transporte público',
-    source: 'Diario 21',
+    title: 'Cuestionan a Torres por postura sobre inseguridad en la ZMG',
+    source: 'El Informador',
     time: '09:15 AM',
     sentiment: 'NEGATIVA' as const,
   },
   {
-    title: 'Empresarios respaldan propuestas económicas de Damián',
-    source: 'Negocios Guerrero',
+    title: 'Cámara de Comercio recibe a José Eduardo Torres en foro empresarial',
+    source: 'NTR Guadalajara',
     time: '08:40 AM',
     sentiment: 'NEUTRAL' as const,
   },
 ];
 
 export const topics = [
-  { name: 'Seguridad', mentions: 4230, sentiment: 71, positive: true },
-  { name: 'Cercanía con la gente', mentions: 2810, sentiment: 66, positive: true },
-  { name: 'Transporte público', mentions: 1920, sentiment: -63, positive: false },
-  { name: 'Economía', mentions: 1540, sentiment: 47, positive: true },
-  { name: 'Corrupción', mentions: 1210, sentiment: -38, positive: false },
+  { name: 'Movilidad urbana', mentions: 4230, sentiment: 68, positive: true },
+  { name: 'Seguridad ZMG', mentions: 3480, sentiment: -42, positive: false },
+  { name: 'Cercanía con vecinos', mentions: 2810, sentiment: 66, positive: true },
+  { name: 'Corrupción', mentions: 1920, sentiment: -55, positive: false },
+  { name: 'Empleo y economía', mentions: 1540, sentiment: 47, positive: true },
 ];
 
 export const wordCloud = [
@@ -104,30 +104,30 @@ export const wordCloud = [
 
 export const alerts = [
   {
-    title: 'Alerta Naranja · Transporte Público',
-    description: 'Crecimiento rápido en la conversación negativa. Velocidad: 38% en la última hora.',
+    title: 'Alerta Naranja · Seguridad ZMG',
+    description: 'Crecimiento rápido en la conversación negativa sobre inseguridad. Velocidad: 38% en la última hora.',
     time: 'Hace 15 min',
     severity: 'orange' as const,
   },
   {
-    title: 'Alerta Amarilla · Seguridad',
-    description: 'Video crítico comienza a tomar alcance en redes sociales.',
+    title: 'Alerta Amarilla · TikTok',
+    description: 'Video crítico sobre José Eduardo Torres comienza a tomar alcance con creadores locales.',
     time: 'Hace 42 min',
     severity: 'yellow' as const,
   },
   {
     title: 'Alerta Informativa · Competencia',
-    description: 'Competidor A anunció evento masivo para mañana en tu bastión.',
+    description: 'Aspirante rival anunció recorrido masivo para mañana en Zapopan.',
     time: 'Hace 1 h',
     severity: 'blue' as const,
   },
 ];
 
 export const suggestedActions = [
-  { title: 'Publicar postura sobre transporte', time: 'Hoy · 12:00 PM' },
-  { title: 'Activar voceros técnicos', time: 'Hoy · 02:00 PM' },
-  { title: 'Contenido positivo en redes', time: 'Hoy · 04:00 PM' },
-  { title: 'Monitoreo y ajuste de narrativa', time: 'Continuo' },
+  { title: 'Publicar postura sobre seguridad ZMG', time: 'Hoy · 12:00 PM' },
+  { title: 'Activar red de voceros en TikTok', time: 'Hoy · 02:00 PM' },
+  { title: 'Contenido positivo de movilidad', time: 'Hoy · 04:00 PM' },
+  { title: 'Monitoreo de menciones críticas', time: 'Continuo' },
 ];
 
 export const navItems = [
@@ -142,24 +142,25 @@ export const navItems = [
   { id: 'config', label: 'Configuración', icon: 'settings' },
 ];
 
-const guerreroSentiment: Record<string, number> = {
-  'Guerrero': 0.85,
+const jaliscoSentiment: Record<string, number> = {
+  'Jalisco': 0.85,
+  'Nayarit': 0.55,
+  'Colima': 0.62,
+  'Aguascalientes': 0.45,
   'Michoacán': 0.35,
-  'Oaxaca': 0.55,
-  'Puebla': 0.25,
-  'Morelos': 0.65,
-  'Estado de México': 0.15,
-  'Ciudad de México': 0.05,
-  'Veracruz': -0.15,
-  'Jalisco': -0.25,
-  'Chiapas': -0.35,
-  'Tabasco': -0.45,
-  'Nuevo León': -0.55,
-  'Sonora': -0.65,
+  'Guanajuato': 0.28,
+  'Zacatecas': 0.15,
+  'Ciudad de México': 0.10,
+  'San Luis Potosí': -0.05,
+  'Sinaloa': -0.18,
+  'Guerrero': -0.25,
+  'Nuevo León': -0.32,
+  'Sonora': -0.45,
+  'Chiapas': -0.55,
 };
 
 export function stateSentiment(name: string): number {
-  return guerreroSentiment[name] ?? (Math.sin(name.length * 3.7) * 0.5);
+  return jaliscoSentiment[name] ?? (Math.sin(name.length * 3.7) * 0.5);
 }
 
 export function sentimentColor(v: number): string {
@@ -171,25 +172,25 @@ export function sentimentColor(v: number): string {
 }
 
 export const recentMentions = [
-  { user: '@carlosMX_', platform: 'x', text: 'Excelente propuesta de @EsthelaDamian sobre seguridad en Guerrero. Es lo que necesitamos.', sentiment: 'positivo', time: 'Hace 3 min', engagement: 234 },
-  { user: 'Jimena Flores', platform: 'facebook', text: 'No confío en las promesas de Damián sobre transporte. Ya lo prometió antes.', sentiment: 'negativo', time: 'Hace 8 min', engagement: 89 },
-  { user: '@guerrero_hoy', platform: 'x', text: 'Damián presenta plan económico con propuestas concretas para PYMEs.', sentiment: 'neutral', time: 'Hace 12 min', engagement: 156 },
-  { user: '@analista_pol', platform: 'x', text: 'La estrategia de campaña de Esthela Damián muestra madurez política.', sentiment: 'positivo', time: 'Hace 18 min', engagement: 421 },
-  { user: 'Marcos Herrera', platform: 'facebook', text: 'Videos virales muestran incongruencias en el discurso de Damián.', sentiment: 'negativo', time: 'Hace 24 min', engagement: 1230 },
-  { user: '@laura_periodista', platform: 'instagram', text: 'Cobertura del evento de Damián en Acapulco: gran asistencia y buen recibimiento.', sentiment: 'positivo', time: 'Hace 32 min', engagement: 892 },
-  { user: '@datos_gro', platform: 'x', text: 'Encuesta muestra a Damián 4 puntos arriba en intención de voto.', sentiment: 'positivo', time: 'Hace 41 min', engagement: 567 },
-  { user: 'Roberto Vega', platform: 'facebook', text: 'Muchas propuestas, pocos resultados hasta ahora. Veremos si esta vez es diferente.', sentiment: 'neutral', time: 'Hace 55 min', engagement: 78 },
+  { user: '@tapatio_gdl', platform: 'x', text: 'Buena propuesta de @joseeduardo_tq sobre movilidad urbana en GDL. Ojalá se concrete.', sentiment: 'positivo', time: 'Hace 3 min', engagement: 234 },
+  { user: 'Marisol Ríos', platform: 'facebook', text: 'No confío en las promesas de José Eduardo Torres sobre seguridad. Falta ver acciones.', sentiment: 'negativo', time: 'Hace 8 min', engagement: 89 },
+  { user: '@gdl_noticias', platform: 'x', text: 'Torres se reúne con empresarios de la Cámara de Comercio en Guadalajara.', sentiment: 'neutral', time: 'Hace 12 min', engagement: 156 },
+  { user: '@analista_jalisco', platform: 'x', text: 'La estrategia digital de José Eduardo Torres está sumando seguidores rápido.', sentiment: 'positivo', time: 'Hace 18 min', engagement: 421 },
+  { user: 'Adrián Camarena', platform: 'facebook', text: 'Videos en TikTok muestran contradicciones en el discurso de Torres.', sentiment: 'negativo', time: 'Hace 24 min', engagement: 1230 },
+  { user: '@lorena_reportera', platform: 'instagram', text: 'Cobertura del recorrido de José Eduardo Torres en el Centro Histórico: buena convocatoria.', sentiment: 'positivo', time: 'Hace 32 min', engagement: 892 },
+  { user: '@encuestas_mx', platform: 'x', text: 'Encuesta local ubica a Torres 3 puntos arriba entre aspirantes a la alcaldía de GDL.', sentiment: 'positivo', time: 'Hace 41 min', engagement: 567 },
+  { user: 'Ricardo Ochoa', platform: 'facebook', text: 'Muchas propuestas, pocos resultados hasta ahora. A ver si esta vez sí.', sentiment: 'neutral', time: 'Hace 55 min', engagement: 78 },
 ];
 
 export const allNews = [
-  { title: 'Esthela Damián presenta plan integral de seguridad estatal', source: 'El Sur de Guerrero', time: '10:02 AM', sentiment: 'POSITIVA', summary: 'La candidata detalló propuestas específicas para reducir violencia en zonas críticas del estado.' },
-  { title: 'Críticas por declaración sobre transporte público en foro empresarial', source: 'Diario 21', time: '09:15 AM', sentiment: 'NEGATIVA', summary: 'Sector transportista rechaza propuestas de modernización tarifaria mencionadas por Damián.' },
-  { title: 'Empresarios respaldan propuestas económicas de Damián', source: 'Negocios Guerrero', time: '08:40 AM', sentiment: 'NEUTRAL', summary: 'Cámara de Comercio expresa interés en el plan de incentivos fiscales para PYMEs.' },
-  { title: 'Damián lidera en encuestas con 4 puntos sobre competencia', source: 'Milenio', time: '08:15 AM', sentiment: 'POSITIVA', summary: 'Última medición de intención de voto la coloca como favorita.' },
-  { title: 'Debate sobre financiamiento de campaña genera polémica', source: 'Reforma', time: '07:50 AM', sentiment: 'NEGATIVA', summary: 'Cuestionan origen de recursos para spots publicitarios recientes.' },
-  { title: 'Damián visita comunidades indígenas de la Montaña', source: 'La Jornada Guerrero', time: '07:20 AM', sentiment: 'POSITIVA', summary: 'Recorrido incluye 4 municipios y encuentros con líderes tradicionales.' },
-  { title: 'Anuncia gabinete técnico paritario si gana elecciones', source: 'Excélsior', time: '06:45 AM', sentiment: 'POSITIVA', summary: 'Presentó lista preliminar con 50% mujeres y perfiles académicos destacados.' },
-  { title: 'Movimiento juvenil convoca marcha por transparencia', source: 'Proceso', time: '06:20 AM', sentiment: 'NEUTRAL', summary: 'Piden a todos los candidatos publicar declaraciones patrimoniales completas.' },
+  { title: 'José Eduardo Torres presenta plan integral de movilidad para Guadalajara', source: 'Milenio Jalisco', time: '10:02 AM', sentiment: 'POSITIVA', summary: 'El aspirante detalló propuestas específicas para ciclovías, transporte público y rutas alimentadoras al Mi Macro.' },
+  { title: 'Cuestionan a Torres por postura sobre inseguridad en la ZMG', source: 'El Informador', time: '09:15 AM', sentiment: 'NEGATIVA', summary: 'Colectivos ciudadanos rechazan que se minimicen los índices delictivos en Guadalajara y Zapopan.' },
+  { title: 'Cámara de Comercio recibe a José Eduardo Torres en foro empresarial', source: 'NTR Guadalajara', time: '08:40 AM', sentiment: 'NEUTRAL', summary: 'Presentó su visión para atraer inversión al centro de la ciudad y detonar el corredor de Chapultepec.' },
+  { title: 'Torres lidera preferencia entre aspirantes de Guadalajara', source: 'Reforma', time: '08:15 AM', sentiment: 'POSITIVA', summary: 'Encuesta interna lo coloca 3 puntos arriba con 34% de intención de voto en la ZMG.' },
+  { title: 'Debate por origen de recursos en spots de José Eduardo Torres', source: 'Proceso', time: '07:50 AM', sentiment: 'NEGATIVA', summary: 'Oposición pide al IEPC-Jalisco investigar contratación de pauta digital reciente.' },
+  { title: 'Torres recorre las colonias del Cerro del Cuatro con vecinos', source: 'La Jornada Jalisco', time: '07:20 AM', sentiment: 'POSITIVA', summary: 'Visitó tres colonias con líderes vecinales para escuchar demandas de servicios básicos.' },
+  { title: 'Anuncia gabinete técnico y paritario si gana la alcaldía', source: 'El Occidental', time: '06:45 AM', sentiment: 'POSITIVA', summary: 'Adelantó perfiles académicos y con experiencia municipal para las principales carteras.' },
+  { title: 'Jóvenes convocan marcha por transparencia rumbo al 2027', source: 'UdeG Radio', time: '06:20 AM', sentiment: 'NEUTRAL', summary: 'Piden a todos los aspirantes publicar declaraciones 3 de 3 completas antes del proceso.' },
 ];
 
 export const allAlerts = [
@@ -373,7 +374,7 @@ export const politicians: Politician[] = [
 ];
 
 export const activeSubscription = {
-  politicianId: 'esthela',
+  politicianId: 'jose-eduardo-torres',
   planName: 'Plan de Prueba',
   daysRemaining: 12,
   totalDays: 14,

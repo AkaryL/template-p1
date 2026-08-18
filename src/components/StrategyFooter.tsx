@@ -12,8 +12,8 @@ export function StrategyFooter() {
           <h3 className="text-[12px] font-semibold text-gray-200 truncate">Recomendación estratégica</h3>
         </div>
         <p className="text-[11px] text-gray-400 leading-relaxed">
-          Enfocar próximos mensajes en propuestas de movilidad sostenible y soluciones concretas. Evitar confrontación
-          directa y utilizar voceros técnicos.
+          Enfocar próximos mensajes en movilidad urbana y seguridad para la ZMG. Evitar confrontación directa con
+          adversarios y apalancarse en voceros técnicos y vecinales.
         </p>
       </div>
 
@@ -47,7 +47,7 @@ export function StrategyFooter() {
         </div>
         <div className="flex items-center gap-3">
           <p className="text-[11px] text-gray-400 leading-relaxed flex-1">
-            Reducir sentimiento negativo sobre transporte de 63% a menos de 45% y mantener momentum favorable.
+            Reducir menciones negativas sobre inseguridad en la ZMG de 42% a menos de 30% y sostener el momentum.
           </p>
           <GoalRing pct={63} />
         </div>
