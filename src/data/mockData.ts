@@ -6,7 +6,7 @@ export const candidate = {
   eleccion: 'Municipal 2027',
   diasParaEleccion: 124,
   photoInitials: 'JE',
-  photoUrl: '',
+  photoUrl: '/candidates/jose-eduardo-torres.jpg',
 };
 
 export const kpis = [
