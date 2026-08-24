@@ -6,7 +6,7 @@ export const candidate = {
   eleccion: 'Gubernatura 2028',
   diasParaEleccion: 458,
   photoInitials: 'AA',
-  photoUrl: '',
+  photoUrl: '/candidates/antonio-arambula.jpg',
 };
 
 export const kpis = [
