@@ -54,22 +54,75 @@ export const platforms = [
   { name: 'YouTube', value: 5, color: '#ff0000', icon: 'youtube' },
 ];
 
+export type MediaTier = 'nacional-tv' | 'nacional-print' | 'regional' | 'digital-medio' | 'influencer';
+
+export const mediaTierMeta: Record<MediaTier, { label: string; short: string; weight: number; color: string; bg: string; border: string; text: string }> = {
+  'nacional-tv': {
+    label: 'Televisora nacional',
+    short: 'TV Nacional',
+    weight: 3.0,
+    color: '#eab308',
+    bg: 'bg-yellow-500/15',
+    border: 'border-yellow-500/40',
+    text: 'text-yellow-300',
+  },
+  'nacional-print': {
+    label: 'Prensa nacional',
+    short: 'Nacional',
+    weight: 2.5,
+    color: '#a855f7',
+    bg: 'bg-violet-500/15',
+    border: 'border-violet-500/40',
+    text: 'text-violet-300',
+  },
+  'regional': {
+    label: 'Prensa regional',
+    short: 'Regional',
+    weight: 2.0,
+    color: '#3b82f6',
+    bg: 'bg-blue-500/15',
+    border: 'border-blue-500/40',
+    text: 'text-blue-300',
+  },
+  'digital-medio': {
+    label: 'Medio digital',
+    short: 'Digital',
+    weight: 1.0,
+    color: '#6b7280',
+    bg: 'bg-gray-500/15',
+    border: 'border-gray-500/40',
+    text: 'text-gray-300',
+  },
+  'influencer': {
+    label: 'Influencer / creador',
+    short: 'Influencer',
+    weight: 0.5,
+    color: '#f97316',
+    bg: 'bg-orange-500/15',
+    border: 'border-orange-500/40',
+    text: 'text-orange-300',
+  },
+};
+
 export const topNews = [
   {
-    title: 'José Eduardo Torres presenta plan de movilidad para Guadalajara',
-    source: 'Milenio Jalisco',
+    title: 'Noticieros Televisa reporta plan de movilidad de Torres para Guadalajara',
+    source: 'Noticieros Televisa',
+    tier: 'nacional-tv' as MediaTier,
     time: '10:02 AM',
     sentiment: 'POSITIVA' as const,
   },
   {
-    title: 'Cuestionan a Torres por postura sobre inseguridad en la ZMG',
-    source: 'El Informador',
+    title: 'Reforma cuestiona a Torres por postura sobre inseguridad en la ZMG',
+    source: 'Reforma',
+    tier: 'nacional-print' as MediaTier,
     time: '09:15 AM',
     sentiment: 'NEGATIVA' as const,
   },
   {
-    title: 'Cámara de Comercio recibe a José Eduardo Torres en foro empresarial',
+    title: 'Cámara de Comercio de Jalisco recibe a Torres en foro empresarial',
     source: 'NTR Guadalajara',
+    tier: 'regional' as MediaTier,
     time: '08:40 AM',
     sentiment: 'NEUTRAL' as const,
   },
@@ -102,32 +155,210 @@ export const wordCloud = [
   { text: 'honesto', value: 22, color: '#eab308' },
 ];
 
+export type AlertSeverity = 'orange' | 'yellow' | 'blue';
+
 export const alerts = [
   {
-    title: 'Alerta Naranja · Seguridad ZMG',
-    description: 'Crecimiento rápido en la conversación negativa sobre inseguridad. Velocidad: 38% en la última hora.',
+    id: 'alt-01',
+    what: 'Crecimiento acelerado de conversación negativa sobre inseguridad en la ZMG',
+    who: 'Colectivos ciudadanos de Guadalajara + prensa regional',
+    risk: 'Alto · impacto reputacional en 24h',
     time: 'Hace 15 min',
-    severity: 'orange' as const,
+    severity: 'orange' as AlertSeverity,
+    recommendationId: 'rec-seguridad-zmg',
   },
   {
-    title: 'Alerta Amarilla · TikTok',
-    description: 'Video crítico sobre José Eduardo Torres comienza a tomar alcance con creadores locales.',
+    id: 'alt-02',
+    what: 'Video crítico sobre Torres toma alcance en TikTok',
+    who: 'Creadores locales de Guadalajara · 12,500 views en 40 min',
+    risk: 'Medio · viralización probable en 6h',
     time: 'Hace 42 min',
-    severity: 'yellow' as const,
+    severity: 'yellow' as AlertSeverity,
+    recommendationId: 'rec-video-critico',
   },
   {
-    title: 'Alerta Informativa · Competencia',
-    description: 'Aspirante rival anunció recorrido masivo para mañana en Zapopan.',
+    id: 'alt-03',
+    what: 'Aspirante rival anunció recorrido masivo en Zapopan',
+    who: 'Competidor de la ZMG · mañana 6:00 PM en Zapopan',
+    risk: 'Bajo · disputa de agenda mediática',
     time: 'Hace 1 h',
-    severity: 'blue' as const,
+    severity: 'blue' as AlertSeverity,
+    recommendationId: 'rec-competencia',
   },
 ];
 
 export const suggestedActions = [
-  { title: 'Publicar postura sobre seguridad ZMG', time: 'Hoy · 12:00 PM' },
-  { title: 'Activar red de voceros en TikTok', time: 'Hoy · 02:00 PM' },
-  { title: 'Contenido positivo de movilidad', time: 'Hoy · 04:00 PM' },
-  { title: 'Monitoreo de menciones críticas', time: 'Continuo' },
+  { title: 'Publicar postura sobre transporte', time: 'Hoy · 12:00 PM' },
+  { title: 'Activar voceros técnicos', time: 'Hoy · 02:00 PM' },
+  { title: 'Contenido positivo en redes', time: 'Hoy · 04:00 PM' },
+  { title: 'Monitoreo y ajuste de narrativa', time: 'Continuo' },
+];
+
+export type RecommendationUrgency = 'alta' | 'media' | 'baja';
+export type RecommendationCategory = 'crisis' | 'narrativa' | 'contenido' | 'operacion' | 'competencia';
+
+export const recommendations: {
+  id: string;
+  title: string;
+  category: RecommendationCategory;
+  urgency: RecommendationUrgency;
+  summary: string;
+  actions: string[];
+  linkedAlertId?: string;
+  timeframe: string;
+}[] = [
+  {
+    id: 'rec-seguridad-zmg',
+    title: 'Neutralizar narrativa negativa sobre inseguridad en la ZMG',
+    category: 'crisis',
+    urgency: 'alta',
+    summary: 'La conversación negativa sobre seguridad en Guadalajara y Zapopan creció 38% en 1 hora. Colectivos ciudadanos amplifican en prensa regional. Ventana de acción: próximas 6 horas.',
+    actions: [
+      'Publicar posicionamiento oficial en X, Facebook e Instagram antes de las 12:00 PM',
+      'Activar 3 voceros técnicos con perfil en seguridad municipal para entrevistas radio',
+      'Coordinar reunión privada con colectivos ciudadanos en próximas 48h',
+      'Preparar carrusel visual con las 5 acciones concretas del plan para la ZMG',
+    ],
+    linkedAlertId: 'alt-01',
+    timeframe: 'Próximas 6 horas',
+  },
+  {
+    id: 'rec-video-critico',
+    title: 'Contención de video crítico viralizado en TikTok',
+    category: 'crisis',
+    urgency: 'alta',
+    summary: 'Video crítico sobre Torres acumula 12,500 views en 40 min con creadores locales de Guadalajara. Réplicas comenzando en TikTok. Evitar respuesta directa que amplifique alcance.',
+    actions: [
+      'NO responder directamente al video (evitar Streisand effect)',
+      'Producir contenido propio en el mismo formato para saturar el algoritmo',
+      'Activar red de creadores tapatíos aliados con contenido paralelo',
+      'Monitorear réplicas cada 30 minutos y reportar patrones',
+    ],
+    linkedAlertId: 'alt-02',
+    timeframe: 'Próximas 4 horas',
+  },
+  {
+    id: 'rec-competencia',
+    title: 'Contra-agenda por recorrido del rival en Zapopan',
+    category: 'competencia',
+    urgency: 'media',
+    summary: 'Aspirante rival convoca recorrido masivo mañana 6:00 PM en Zapopan. Necesitamos ocupar el ciclo mediático del día en la ZMG.',
+    actions: [
+      'Agendar recorrido territorial paralelo en 3 colonias de Guadalajara',
+      'Anunciar una propuesta concreta con embargo periodístico para las 5:00 PM',
+      'Convocar a medios locales (Milenio Jalisco, El Informador, NTR) con anticipación',
+    ],
+    linkedAlertId: 'alt-03',
+    timeframe: 'Mañana',
+  },
+  {
+    id: 'rec-financiamiento',
+    title: 'Blindar narrativa de transparencia financiera',
+    category: 'narrativa',
+    urgency: 'media',
+    summary: 'Menciones negativas sobre origen de recursos crecen +18%. Reforma publicó pieza cuestionando spots. Necesitamos anticiparnos antes de que escale.',
+    actions: [
+      'Publicar de forma proactiva declaración 3 de 3 completa',
+      'Contactar a reporteros de fuentes electorales con contexto',
+      'Preparar timeline visual del cumplimiento de reportes ante el IEPC-Jalisco',
+    ],
+    linkedAlertId: 'alt-04',
+    timeframe: 'Próximas 48 horas',
+  },
+  {
+    id: 'rec-prensa-nacional',
+    title: 'Aprovechar cobertura neutral de El Informador',
+    category: 'narrativa',
+    urgency: 'baja',
+    summary: 'El Informador publicó reportaje sobre trayectoria y equipo cercano con tono neutral. Oportunidad para reforzar mensaje de perfil en la conversación pública.',
+    actions: [
+      'Compartir la nota en redes propias con quote seleccionada',
+      'Enviar agradecimiento privado a la reportera y ofrecer entrevista de seguimiento',
+      'Producir 3 piezas de contenido derivadas (video, carrusel, hilo)',
+    ],
+    linkedAlertId: 'alt-05',
+    timeframe: 'Esta semana',
+  },
+  {
+    id: 'rec-desinformacion',
+    title: 'Respuesta a ataque coordinado #NoAlAspiranteTorres',
+    category: 'crisis',
+    urgency: 'alta',
+    summary: 'Se detectó red de 89 cuentas con patrón de bot en X. El hashtag creció +120%. No es orgánico y podemos denunciarlo con evidencia.',
+    actions: [
+      'Compilar evidencia técnica de las 89 cuentas (fecha creación, patrón horario)',
+      'Reportar a plataformas (X, Meta) el ataque coordinado',
+      'Publicar comunicado con datos abiertos denunciando la operación',
+      'Coordinar respuesta orgánica con base propia (sin hashtag oficial de respuesta)',
+    ],
+    linkedAlertId: 'alt-06',
+    timeframe: 'Próximas 24 horas',
+  },
+  {
+    id: 'rec-agenda-movilidad',
+    title: 'Consolidar agenda de movilidad urbana',
+    category: 'contenido',
+    urgency: 'media',
+    summary: 'El anuncio del plan integral de movilidad tuvo cobertura positiva en Televisa y Milenio Jalisco. Momentum para amplificar y consolidar posición como líder del tema.',
+    actions: [
+      'Serie de 5 videos explicando ciclovías, transporte público y rutas alimentadoras',
+      'Alianzas con colectivos de movilidad sustentable para respaldo público',
+      'Entrevistas exclusivas con 2 medios especializados en urbanismo',
+    ],
+    timeframe: 'Próximas 2 semanas',
+  },
+  {
+    id: 'rec-operativa-territorio',
+    title: 'Densificar presencia territorial en la ZMG',
+    category: 'operacion',
+    urgency: 'baja',
+    summary: 'La zona centro de Guadalajara muestra el sentimiento positivo más alto pero también menor volumen de menciones en colonias periféricas. Oportunidad para consolidar.',
+    actions: [
+      'Programar 3 recorridos comunitarios en el próximo mes (Cerro del Cuatro, Oblatos, Miravalle)',
+      'Producir contenido enfocado en vecinos de colonias populares',
+      'Coordinar con líderes vecinales identificados',
+    ],
+    timeframe: 'Próximo mes',
+  },
+];
+
+export type Statement = {
+  candidateId: string;
+  candidateName: string;
+  party: string;
+  headline: string;
+  quote: string;
+  source: string;
+  time: string;
+  tier: MediaTier;
+};
+
+export const importantStatements: Statement[] = [
+  {
+    candidateId: 'competitor-1',
+    candidateName: 'Competidor A',
+    party: 'Partido A',
+    headline: 'Anuncia programa emergente contra la violencia en zonas rurales',
+    quote: 'La seguridad no espera: en 100 días tendremos operativos permanentes en las 8 regiones del estado.',
+    source: 'Milenio',
+    time: '11:15 AM',
+    tier: 'nacional-print',
+  },
+  {
+    candidateId: 'competitor-2',
+    candidateName: 'Competidor B',
+    party: 'Partido B',
+    headline: 'Propone reformar la ley de participación ciudadana',
+    quote: 'Devolveremos a las comunidades el poder de decisión sobre su presupuesto.',
+    source: 'Reforma',
+    time: '10:40 AM',
+    tier: 'nacional-print',
+  },
+];
+
+export const politicalPostulations: { candidateId: string; declaration: string; date: string }[] = [
+  { candidateId: 'competitor-1', declaration: 'Registro formal ante la autoridad electoral pendiente. Precampaña activa desde marzo.', date: 'Actualizado hoy' },
+  { candidateId: 'competitor-2', declaration: 'Formalizó postulación oficial la semana pasada. Coalición ya inscrita.', date: 'Actualizado hoy' },
 ];
 
 export const navItems = [
@@ -183,74 +414,98 @@ export const recentMentions = [
 ];
 
 export const allNews = [
-  { title: 'José Eduardo Torres presenta plan integral de movilidad para Guadalajara', source: 'Milenio Jalisco', time: '10:02 AM', sentiment: 'POSITIVA', summary: 'El aspirante detalló propuestas específicas para ciclovías, transporte público y rutas alimentadoras al Mi Macro.' },
-  { title: 'Cuestionan a Torres por postura sobre inseguridad en la ZMG', source: 'El Informador', time: '09:15 AM', sentiment: 'NEGATIVA', summary: 'Colectivos ciudadanos rechazan que se minimicen los índices delictivos en Guadalajara y Zapopan.' },
-  { title: 'Cámara de Comercio recibe a José Eduardo Torres en foro empresarial', source: 'NTR Guadalajara', time: '08:40 AM', sentiment: 'NEUTRAL', summary: 'Presentó su visión para atraer inversión al centro de la ciudad y detonar el corredor de Chapultepec.' },
-  { title: 'Torres lidera preferencia entre aspirantes de Guadalajara', source: 'Reforma', time: '08:15 AM', sentiment: 'POSITIVA', summary: 'Encuesta interna lo coloca 3 puntos arriba con 34% de intención de voto en la ZMG.' },
-  { title: 'Debate por origen de recursos en spots de José Eduardo Torres', source: 'Proceso', time: '07:50 AM', sentiment: 'NEGATIVA', summary: 'Oposición pide al IEPC-Jalisco investigar contratación de pauta digital reciente.' },
-  { title: 'Torres recorre las colonias del Cerro del Cuatro con vecinos', source: 'La Jornada Jalisco', time: '07:20 AM', sentiment: 'POSITIVA', summary: 'Visitó tres colonias con líderes vecinales para escuchar demandas de servicios básicos.' },
-  { title: 'Anuncia gabinete técnico y paritario si gana la alcaldía', source: 'El Occidental', time: '06:45 AM', sentiment: 'POSITIVA', summary: 'Adelantó perfiles académicos y con experiencia municipal para las principales carteras.' },
-  { title: 'Jóvenes convocan marcha por transparencia rumbo al 2027', source: 'UdeG Radio', time: '06:20 AM', sentiment: 'NEUTRAL', summary: 'Piden a todos los aspirantes publicar declaraciones 3 de 3 completas antes del proceso.' },
+  { title: 'Noticieros Televisa reporta el plan integral de movilidad de Torres para Guadalajara', source: 'Noticieros Televisa', tier: 'nacional-tv' as MediaTier, time: '10:02 AM', sentiment: 'POSITIVA', summary: 'Cobertura en horario estelar. El aspirante detalló propuestas específicas para ciclovías, transporte público y rutas alimentadoras al Mi Macro.' },
+  { title: 'TV Azteca abre noticiario con recorrido de Torres por Cerro del Cuatro', source: 'Hechos AM · TV Azteca', tier: 'nacional-tv' as MediaTier, time: '07:20 AM', sentiment: 'POSITIVA', summary: 'Nota de dos minutos con recorrido en tres colonias y encuentros con líderes vecinales de la zona.' },
+  { title: 'Reforma cuestiona financiamiento de campaña y compra de spots digitales', source: 'Reforma', tier: 'nacional-print' as MediaTier, time: '07:50 AM', sentiment: 'NEGATIVA', summary: 'Investigación cuestiona el origen de recursos para pauta digital y spots publicitarios recientes.' },
+  { title: 'El Universal: Torres anuncia gabinete técnico y paritario si gana la alcaldía', source: 'El Universal', tier: 'nacional-print' as MediaTier, time: '06:45 AM', sentiment: 'POSITIVA', summary: 'Adelantó perfiles académicos y con experiencia municipal para las principales carteras.' },
+  { title: 'Milenio: Torres lidera preferencia entre aspirantes de Guadalajara', source: 'Milenio', tier: 'nacional-print' as MediaTier, time: '08:15 AM', sentiment: 'POSITIVA', summary: 'Encuesta interna lo coloca 3 puntos arriba con 34% de intención de voto en la ZMG.' },
+  { title: 'Cámara de Comercio de Jalisco recibe a Torres en foro empresarial', source: 'NTR Guadalajara', tier: 'regional' as MediaTier, time: '08:40 AM', sentiment: 'NEUTRAL', summary: 'Presentó su visión para atraer inversión al centro de la ciudad y detonar el corredor de Chapultepec.' },
+  { title: 'Cuestionan a Torres por postura sobre inseguridad en la ZMG', source: 'El Informador', tier: 'regional' as MediaTier, time: '09:15 AM', sentiment: 'NEGATIVA', summary: 'Colectivos ciudadanos rechazan que se minimicen los índices delictivos en Guadalajara y Zapopan.' },
+  { title: 'Jóvenes convocan marcha por transparencia rumbo al 2027', source: 'UdeG Radio', tier: 'digital-medio' as MediaTier, time: '06:20 AM', sentiment: 'NEUTRAL', summary: 'Piden a todos los aspirantes publicar declaraciones 3 de 3 completas antes del proceso.' },
+  { title: 'Influencer tapatío viraliza video crítico sobre Torres', source: '@gdl_noticias · X', tier: 'influencer' as MediaTier, time: '05:40 AM', sentiment: 'NEGATIVA', summary: 'Publicación de creador con 340k seguidores acumula 25k reproducciones en cuatro horas.' },
 ];
 
 export const allAlerts = [
   {
-    title: 'Alerta Naranja · Seguridad ZMG',
-    description: 'Crecimiento rápido en la conversación negativa sobre inseguridad en Guadalajara y Zapopan. Velocidad: 38% en la última hora. Volumen actual: 2,340 menciones.',
-    time: 'Hace 15 min',
-    severity: 'orange',
+    id: 'alt-01',
+    what: 'Crecimiento acelerado de conversación negativa sobre inseguridad en la ZMG (+38% en la última hora, 2,340 menciones)',
+    who: 'Colectivos ciudadanos de Guadalajara + prensa regional (El Informador, NTR)',
+    risk: 'Alto · impacto reputacional en 24h · puede escalar a nacional',
     zone: 'Zona Metropolitana',
-    trend: '+38%',
+    time: 'Hace 15 min',
+    severity: 'orange' as AlertSeverity,
+    recommendationId: 'rec-seguridad-zmg',
   },
   {
-    title: 'Alerta Amarilla · TikTok crítico',
-    description: 'Video crítico sobre José Eduardo Torres comienza a tomar alcance con creadores locales. 12,500 views en 40 minutos.',
-    time: 'Hace 42 min',
-    severity: 'yellow',
+    id: 'alt-02',
+    what: 'Video crítico toma alcance en TikTok: 12,500 views en 40 minutos',
+    who: 'Creadores locales de Guadalajara + réplicas en TikTok',
+    risk: 'Medio · viralización probable en 6h',
     zone: 'Guadalajara',
-    trend: '+22%',
+    time: 'Hace 42 min',
+    severity: 'yellow' as AlertSeverity,
+    recommendationId: 'rec-video-critico',
   },
   {
-    title: 'Alerta Informativa · Competencia',
-    description: 'Aspirante rival anunció recorrido masivo para mañana en Zapopan. Estimado: 5,000 asistentes.',
-    time: 'Hace 1 h',
-    severity: 'blue',
+    id: 'alt-03',
+    what: 'Aspirante rival anunció recorrido masivo (~5,000 asistentes) en Zapopan',
+    who: 'Competidor de la ZMG · Zapopan · mañana 6:00 PM',
+    risk: 'Bajo · disputa de agenda mediática del día',
     zone: 'Zapopan',
-    trend: '—',
+    time: 'Hace 1 h',
+    severity: 'blue' as AlertSeverity,
+    recommendationId: 'rec-competencia',
   },
   {
-    title: 'Alerta Amarilla · Financiamiento',
-    description: 'Incremento en menciones negativas sobre origen de recursos para spots digitales. Origen: cuentas críticas en X.',
+    id: 'alt-04',
+    what: 'Incremento sostenido de menciones negativas sobre financiamiento de campaña',
+    who: 'Cuentas críticas coordinadas en X + reporte de Reforma',
+    risk: 'Medio · afecta narrativa de transparencia ante IEPC-Jalisco',
+    zone: 'Digital',
     time: 'Hace 2 h',
-    severity: 'yellow',
-    zone: 'Digital',
-    trend: '+18%',
+    severity: 'yellow' as AlertSeverity,
+    recommendationId: 'rec-financiamiento',
   },
   {
-    title: 'Alerta Informativa · Prensa',
-    description: 'El Informador publica reportaje sobre trayectoria y equipo cercano de Torres. Tono neutral.',
-    time: 'Hace 3 h',
-    severity: 'blue',
+    id: 'alt-05',
+    what: 'El Informador publica reportaje sobre trayectoria y equipo cercano (tono neutral)',
+    who: 'El Informador · sección Jalisco',
+    risk: 'Bajo · oportunidad de reforzar perfil biográfico',
     zone: 'Jalisco',
-    trend: '—',
+    time: 'Hace 3 h',
+    severity: 'blue' as AlertSeverity,
+    recommendationId: 'rec-prensa-nacional',
   },
   {
-    title: 'Alerta Naranja · Ataque coordinado',
-    description: 'Detectada campaña coordinada de desinformación con hashtag #NoAlAspiranteTorres. 89 cuentas identificadas en X.',
-    time: 'Hace 4 h',
-    severity: 'orange',
+    id: 'alt-06',
+    what: 'Campaña coordinada de desinformación con hashtag #NoAlAspiranteTorres (+120%)',
+    who: '89 cuentas identificadas en X con patrón de bot',
+    risk: 'Alto · ataque orgánico simulado, requiere respuesta',
     zone: 'Digital',
-    trend: '+120%',
+    time: 'Hace 4 h',
+    severity: 'orange' as AlertSeverity,
+    recommendationId: 'rec-desinformacion',
   },
 ] as const;
 
-export const sentimentByRegion = [
-  { region: 'Guadalajara', positive: 64, neutral: 22, negative: 14 },
-  { region: 'Zapopan', positive: 58, neutral: 24, negative: 18 },
-  { region: 'Tlaquepaque', positive: 52, neutral: 26, negative: 22 },
-  { region: 'Tonalá', positive: 47, neutral: 28, negative: 25 },
-  { region: 'Tlajomulco', positive: 44, neutral: 30, negative: 26 },
-  { region: 'El Salto', positive: 39, neutral: 32, negative: 29 },
+// Foco geográfico del candidato: municipios/estados donde compite
+// - Candidato estatal (gubernatura) → breakdown por municipios del estado
+// - Candidato municipal (alcaldía) → breakdown por colonias/distritos
+export const candidateScope = {
+  level: 'municipal' as 'estatal' | 'municipal',
+  area: 'Guadalajara',
+  breakdownLabel: 'colonias',
+};
+
+export const sentimentByArea = [
+  { area: 'Centro Histórico',   positive: 68, neutral: 20, negative: 12, mentions: 5420, trend: '+4.1 pts' },
+  { area: 'Colonia Americana',  positive: 71, neutral: 19, negative: 10, mentions: 4180, trend: '+3.6 pts' },
+  { area: 'Providencia',        positive: 65, neutral: 22, negative: 13, mentions: 3210, trend: '+2.1 pts' },
+  { area: 'Chapultepec',        positive: 61, neutral: 24, negative: 15, mentions: 2440, trend: '+1.8 pts' },
+  { area: 'Oblatos',            positive: 48, neutral: 28, negative: 24, mentions: 1650, trend: '-0.8 pts' },
+  { area: 'Cerro del Cuatro',   positive: 54, neutral: 26, negative: 20, mentions: 1240, trend: '+1.1 pts' },
+  { area: 'Miravalle',          positive: 44, neutral: 31, negative: 25, mentions: 980,  trend: '-1.4 pts' },
+  { area: 'Huentitán',          positive: 57, neutral: 25, negative: 18, mentions: 810,  trend: '+2.2 pts' },
 ];
 
 export const sentimentByTopic = [
