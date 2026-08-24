@@ -30,7 +30,7 @@ export function HeaderBar() {
 
         <div className="flex items-center gap-1.5 shrink-0">
           <FilterPill icon={<Calendar size={12} />} label="Hoy, 20 May" />
-          <FilterPill icon={<MapPin size={12} />} label="Todo el país" />
+          <FilterPill icon={<MapPin size={12} />} label="Aguascalientes" />
           <button className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-violet-600 text-white text-xs font-medium hover:bg-violet-500 transition-colors whitespace-nowrap">
             <Share2 size={12} />
             <span>Compartir</span>

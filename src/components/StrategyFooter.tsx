@@ -12,8 +12,8 @@ export function StrategyFooter() {
           <h3 className="text-[12px] font-semibold text-gray-200 truncate">Recomendación estratégica</h3>
         </div>
         <p className="text-[11px] text-gray-400 leading-relaxed">
-          Enfocar próximos mensajes en propuestas de movilidad sostenible y soluciones concretas. Evitar confrontación
-          directa y utilizar voceros técnicos.
+          Aclarar proactivamente el proceso de licitación en Jesús María con documentos abiertos. Reforzar la agenda de
+          obras públicas con voceros técnicos y evitar confrontación directa.
         </p>
       </div>
 
@@ -47,7 +47,8 @@ export function StrategyFooter() {
         </div>
         <div className="flex items-center gap-3">
           <p className="text-[11px] text-gray-400 leading-relaxed flex-1">
-            Reducir sentimiento negativo sobre transporte de 63% a menos de 45% y mantener momentum favorable.
+            Sostener el momentum positivo sobre obras públicas (74%) y elevar la percepción de transparencia por
+            arriba del 50% en las próximas 4 semanas.
           </p>
           <GoalRing pct={63} />
         </div>
