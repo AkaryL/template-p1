@@ -1,6 +1,6 @@
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, LineChart, Line, CartesianGrid, Legend } from 'recharts';
-import { Heart, TrendingUp, Search, Filter } from 'lucide-react';
-import { sentimentSeries, sentimentByRegion, sentimentByTopic, recentMentions } from '../data/mockData';
+import { Heart, TrendingUp, Search, Filter, MapPin } from 'lucide-react';
+import { sentimentSeries, sentimentByArea, sentimentByTopic, recentMentions, candidateScope } from '../data/mockData';
 
 const PLATFORM_COLORS: Record<string, string> = { x: '#1d9bf0', facebook: '#1877f2', instagram: '#e1306c' };
 const SENTIMENT_COLORS: Record<string, string> = { positivo: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30', negativo: 'text-red-400 bg-red-500/10 border-red-500/30', neutral: 'text-gray-300 bg-gray-500/10 border-gray-500/30' };
@@ -15,7 +15,9 @@ export function SentimientoPage() {
           </div>
           <div>
             <h1 className="text-white text-xl font-bold tracking-tight">Análisis de Sentimiento</h1>
-            <p className="text-gray-400 text-[13px]">Monitoreo en tiempo real de percepción pública</p>
+            <p className="text-gray-400 text-[13px]">
+              Enfocado en <span className="text-violet-300 font-medium">{candidateScope.area}</span> — nivel {candidateScope.level === 'estatal' ? 'estatal' : 'municipal'}
+            </p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -76,60 +78,79 @@ export function SentimientoPage() {
         </div>
       </div>
 
-      <div className="grid gap-3" style={{ gridTemplateColumns: '1fr 2fr' }}>
-        <div className="card p-4">
-          <h3 className="text-[13px] font-semibold text-gray-200 mb-3">Sentimiento por región</h3>
-          <div className="flex flex-col gap-3">
-            {sentimentByRegion.map((r) => (
-              <div key={r.region}>
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-[12px] text-gray-200">{r.region}</span>
-                  <span className="text-[11px] text-gray-400 tabular-nums">{r.positive}%</span>
+      <div className="card p-4">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <MapPin size={14} className="text-violet-400" />
+            <h3 className="text-[13px] font-semibold text-gray-200">
+              Sentimiento por {candidateScope.breakdownLabel} de {candidateScope.area}
+            </h3>
+          </div>
+          <span className="text-[11px] text-gray-500">
+            Solo se muestra el área donde compite el candidato
+          </span>
+        </div>
+        <div className="grid grid-cols-[minmax(0,1fr)_60px_1fr_80px] gap-x-3 gap-y-1 text-[10px] text-gray-500 uppercase tracking-wider pb-2 border-b border-[#1a1f2b] mb-2">
+          <span>{candidateScope.breakdownLabel.charAt(0).toUpperCase() + candidateScope.breakdownLabel.slice(1, -1)}</span>
+          <span className="text-right">Positivo</span>
+          <span>Distribución</span>
+          <span className="text-right">Menciones</span>
+        </div>
+        <div className="flex flex-col gap-2">
+          {sentimentByArea.map((r) => {
+            const trendUp = r.trend.startsWith('+');
+            return (
+              <div key={r.area} className="grid grid-cols-[minmax(0,1fr)_60px_1fr_80px] gap-x-3 items-center py-1">
+                <div className="min-w-0">
+                  <p className="text-[13px] text-gray-100 font-medium truncate">{r.area}</p>
+                  <p className={`text-[10px] ${trendUp ? 'text-emerald-400' : 'text-red-400'}`}>{r.trend} vs. semana pasada</p>
                 </div>
+                <span className="text-[13px] text-emerald-400 font-bold text-right tabular-nums">{r.positive}%</span>
                 <div className="flex h-1.5 rounded-full overflow-hidden bg-[#1f2533]">
                   <div className="bg-emerald-500" style={{ width: `${r.positive}%` }} />
                   <div className="bg-gray-500" style={{ width: `${r.neutral}%` }} />
                   <div className="bg-red-500" style={{ width: `${r.negative}%` }} />
                 </div>
+                <span className="text-[12px] text-gray-300 text-right tabular-nums">{r.mentions.toLocaleString()}</span>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
+      </div>
 
-        <div className="card p-4">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-[13px] font-semibold text-gray-200">Menciones recientes</h3>
-            <span className="text-[11px] text-gray-500">Actualizado hace 15s</span>
-          </div>
-          <div className="flex flex-col gap-3">
-            {recentMentions.slice(0, 6).map((m, i) => (
-              <div key={i} className="flex items-start gap-2.5 pb-3 border-b border-[#1a1f2b] last:border-0 last:pb-0">
-                <div
-                  className="w-8 h-8 rounded-full shrink-0 flex items-center justify-center text-white text-[10px] font-bold"
-                  style={{ background: PLATFORM_COLORS[m.platform] || '#374151' }}
-                >
-                  {m.user[1]?.toUpperCase() || 'U'}
+      <div className="card p-4">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-[13px] font-semibold text-gray-200">Menciones recientes</h3>
+          <span className="text-[11px] text-gray-500">Actualizado hace 15s</span>
+        </div>
+        <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+          {recentMentions.slice(0, 6).map((m, i) => (
+            <div key={i} className="flex items-start gap-2.5">
+              <div
+                className="w-8 h-8 rounded-full shrink-0 flex items-center justify-center text-white text-[10px] font-bold"
+                style={{ background: PLATFORM_COLORS[m.platform] || '#374151' }}
+              >
+                {m.user[1]?.toUpperCase() || 'U'}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-[12px] text-gray-200 font-medium">{m.user}</span>
+                  <span className="text-[10px] text-gray-500 whitespace-nowrap">{m.time}</span>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-[12px] text-gray-200 font-medium">{m.user}</span>
-                    <span className="text-[10px] text-gray-500 whitespace-nowrap">{m.time}</span>
-                  </div>
-                  <p className="text-[12px] text-gray-300 mt-0.5 leading-snug">{m.text}</p>
-                  <div className="flex items-center gap-2 mt-1.5">
-                    <span
-                      className={`text-[9px] font-bold px-1.5 py-0.5 rounded border uppercase tracking-wider ${SENTIMENT_COLORS[m.sentiment]}`}
-                    >
-                      {m.sentiment}
-                    </span>
-                    <span className="text-[10px] text-gray-500 flex items-center gap-1">
-                      <TrendingUp size={10} /> {m.engagement} interacciones
-                    </span>
-                  </div>
+                <p className="text-[12px] text-gray-300 mt-0.5 leading-snug">{m.text}</p>
+                <div className="flex items-center gap-2 mt-1.5">
+                  <span
+                    className={`text-[9px] font-bold px-1.5 py-0.5 rounded border uppercase tracking-wider ${SENTIMENT_COLORS[m.sentiment]}`}
+                  >
+                    {m.sentiment}
+                  </span>
+                  <span className="text-[10px] text-gray-500 flex items-center gap-1">
+                    <TrendingUp size={10} /> {m.engagement} interacciones
+                  </span>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

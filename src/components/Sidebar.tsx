@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { HiOutlineViewGrid, HiOutlineChartBar, HiOutlineNewspaper, HiOutlineBell, HiOutlineChevronDown, HiOutlineDownload, HiOutlineLogout, HiOutlineUser } from 'react-icons/hi';
+import { HiOutlineViewGrid, HiOutlineChartBar, HiOutlineNewspaper, HiOutlineBell, HiOutlineChevronDown, HiOutlineDownload, HiOutlineLogout, HiOutlineUser, HiOutlineLightBulb, HiOutlineUsers } from 'react-icons/hi';
 
-const NAV = [
+const NAV: { id: string; label: string; Icon: typeof HiOutlineViewGrid; to: string; badge?: number }[] = [
   { id: 'resumen', label: 'Resumen', Icon: HiOutlineViewGrid, to: '/' },
   { id: 'sentimiento', label: 'Sentimiento', Icon: HiOutlineChartBar, to: '/sentimiento' },
   { id: 'noticias', label: 'Noticias', Icon: HiOutlineNewspaper, to: '/noticias' },
   { id: 'alertas', label: 'Alertas', Icon: HiOutlineBell, to: '/alertas', badge: 3 },
+  { id: 'recomendaciones', label: 'Recomendaciones', Icon: HiOutlineLightBulb, to: '/recomendaciones' },
+  { id: 'competencia', label: 'Competencia', Icon: HiOutlineUsers, to: '/competencia' },
 ];
 
 export function Sidebar() {

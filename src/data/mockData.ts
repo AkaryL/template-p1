@@ -54,22 +54,75 @@ export const platforms = [
   { name: 'YouTube', value: 5, color: '#ff0000', icon: 'youtube' },
 ];
 
+export type MediaTier = 'nacional-tv' | 'nacional-print' | 'regional' | 'digital-medio' | 'influencer';
+
+export const mediaTierMeta: Record<MediaTier, { label: string; short: string; weight: number; color: string; bg: string; border: string; text: string }> = {
+  'nacional-tv': {
+    label: 'Televisora nacional',
+    short: 'TV Nacional',
+    weight: 3.0,
+    color: '#eab308',
+    bg: 'bg-yellow-500/15',
+    border: 'border-yellow-500/40',
+    text: 'text-yellow-300',
+  },
+  'nacional-print': {
+    label: 'Prensa nacional',
+    short: 'Nacional',
+    weight: 2.5,
+    color: '#a855f7',
+    bg: 'bg-violet-500/15',
+    border: 'border-violet-500/40',
+    text: 'text-violet-300',
+  },
+  'regional': {
+    label: 'Prensa regional',
+    short: 'Regional',
+    weight: 2.0,
+    color: '#3b82f6',
+    bg: 'bg-blue-500/15',
+    border: 'border-blue-500/40',
+    text: 'text-blue-300',
+  },
+  'digital-medio': {
+    label: 'Medio digital',
+    short: 'Digital',
+    weight: 1.0,
+    color: '#6b7280',
+    bg: 'bg-gray-500/15',
+    border: 'border-gray-500/40',
+    text: 'text-gray-300',
+  },
+  'influencer': {
+    label: 'Influencer / creador',
+    short: 'Influencer',
+    weight: 0.5,
+    color: '#f97316',
+    bg: 'bg-orange-500/15',
+    border: 'border-orange-500/40',
+    text: 'text-orange-300',
+  },
+};
+
 export const topNews = [
   {
-    title: 'Esthela Damián presenta plan de seguridad estatal',
-    source: 'El Sur de Guerrero',
+    title: 'Televisa reporta plan de seguridad estatal de Esthela Damián',
+    source: 'Noticieros Televisa',
+    tier: 'nacional-tv' as MediaTier,
     time: '10:02 AM',
     sentiment: 'POSITIVA' as const,
   },
   {
-    title: 'Críticas por declaración sobre transporte público',
-    source: 'Diario 21',
+    title: 'Reforma cuestiona postura de Damián sobre transporte público',
+    source: 'Reforma',
+    tier: 'nacional-print' as MediaTier,
     time: '09:15 AM',
     sentiment: 'NEGATIVA' as const,
   },
   {
-    title: 'Empresarios respaldan propuestas económicas de Damián',
-    source: 'Negocios Guerrero',
+    title: 'Empresarios de Guerrero respaldan propuestas económicas',
+    source: 'El Sur de Guerrero',
+    tier: 'regional' as MediaTier,
     time: '08:40 AM',
     sentiment: 'NEUTRAL' as const,
   },
@@ -102,24 +155,35 @@ export const wordCloud = [
   { text: 'honesto', value: 22, color: '#eab308' },
 ];
 
+export type AlertSeverity = 'orange' | 'yellow' | 'blue';
+
 export const alerts = [
   {
-    title: 'Alerta Naranja · Transporte Público',
-    description: 'Crecimiento rápido en la conversación negativa. Velocidad: 38% en la última hora.',
+    id: 'alt-01',
+    what: 'Crecimiento acelerado de conversación negativa sobre transporte público',
+    who: 'Sector transportista de Guerrero + prensa regional',
+    risk: 'Alto · impacto reputacional en 24h',
     time: 'Hace 15 min',
-    severity: 'orange' as const,
+    severity: 'orange' as AlertSeverity,
+    recommendationId: 'rec-transporte',
   },
   {
-    title: 'Alerta Amarilla · Seguridad',
-    description: 'Video crítico comienza a tomar alcance en redes sociales.',
+    id: 'alt-02',
+    what: 'Video crítico comienza a tomar alcance en redes',
+    who: 'Creador @guerrero_hoy (340k seguidores en X)',
+    risk: 'Medio · viralización probable en 6h',
     time: 'Hace 42 min',
-    severity: 'yellow' as const,
+    severity: 'yellow' as AlertSeverity,
+    recommendationId: 'rec-video-critico',
   },
   {
-    title: 'Alerta Informativa · Competencia',
-    description: 'Competidor A anunció evento masivo para mañana en tu bastión.',
+    id: 'alt-03',
+    what: 'Competidor anunció evento masivo en tu bastión',
+    who: 'Aspirante rival · zona de Chilpancingo',
+    risk: 'Bajo · disputa de agenda mediática',
     time: 'Hace 1 h',
-    severity: 'blue' as const,
+    severity: 'blue' as AlertSeverity,
+    recommendationId: 'rec-competencia',
   },
 ];
 
@@ -128,6 +192,173 @@ export const suggestedActions = [
   { title: 'Activar voceros técnicos', time: 'Hoy · 02:00 PM' },
   { title: 'Contenido positivo en redes', time: 'Hoy · 04:00 PM' },
   { title: 'Monitoreo y ajuste de narrativa', time: 'Continuo' },
+];
+
+export type RecommendationUrgency = 'alta' | 'media' | 'baja';
+export type RecommendationCategory = 'crisis' | 'narrativa' | 'contenido' | 'operacion' | 'competencia';
+
+export const recommendations: {
+  id: string;
+  title: string;
+  category: RecommendationCategory;
+  urgency: RecommendationUrgency;
+  summary: string;
+  actions: string[];
+  linkedAlertId?: string;
+  timeframe: string;
+}[] = [
+  {
+    id: 'rec-transporte',
+    title: 'Neutralizar narrativa negativa sobre transporte público',
+    category: 'crisis',
+    urgency: 'alta',
+    summary: 'La conversación negativa sobre transporte creció 38% en 1 hora. Sector transportista está movilizado y la prensa regional está amplificando. Ventana de acción: próximas 6 horas.',
+    actions: [
+      'Publicar posicionamiento oficial en X y Facebook antes de las 12:00 PM',
+      'Activar 3 voceros técnicos con perfiles de movilidad urbana para entrevistas radio',
+      'Coordinar reunión privada con líderes de concesionarios en próximas 48h',
+      'Preparar carrusel visual con las 5 acciones concretas del plan',
+    ],
+    linkedAlertId: 'alt-01',
+    timeframe: 'Próximas 6 horas',
+  },
+  {
+    id: 'rec-video-critico',
+    title: 'Contención de video crítico viralizado',
+    category: 'crisis',
+    urgency: 'alta',
+    summary: 'Video de @guerrero_hoy (340k seguidores) acumula 12,500 views en 40 min. Réplicas comenzando en TikTok. Evitar respuesta directa que amplifique alcance.',
+    actions: [
+      'NO responder directamente al video (evitar Streisand effect)',
+      'Producir contenido propio en el mismo formato para saturar el algoritmo',
+      'Activar red de creadores aliados con contenido paralelo',
+      'Monitorear réplicas cada 30 minutos y reportar patrones',
+    ],
+    linkedAlertId: 'alt-02',
+    timeframe: 'Próximas 4 horas',
+  },
+  {
+    id: 'rec-competencia',
+    title: 'Contra-agenda por evento del rival en Chilpancingo',
+    category: 'competencia',
+    urgency: 'media',
+    summary: 'Aspirante rival convoca ~5,000 asistentes mañana 6:00 PM en tu bastión. Necesitamos ocupar el ciclo mediático del día.',
+    actions: [
+      'Agendar recorrido territorial paralelo en 3 colonias del mismo municipio',
+      'Anunciar una propuesta concreta con embargo periodístico para las 5:00 PM',
+      'Convocar a medios locales con anticipación',
+    ],
+    linkedAlertId: 'alt-03',
+    timeframe: 'Mañana',
+  },
+  {
+    id: 'rec-financiamiento',
+    title: 'Blindar narrativa de transparencia financiera',
+    category: 'narrativa',
+    urgency: 'media',
+    summary: 'Menciones negativas sobre origen de recursos crecen +18%. Reforma publicó pieza cuestionando spots. Necesitamos anticiparnos antes de que escale.',
+    actions: [
+      'Publicar de forma proactiva declaración 3 de 3 completa',
+      'Contactar a reporteros de fuentes electorales con contexto',
+      'Preparar timeline visual del cumplimiento de reportes ante autoridad electoral',
+    ],
+    linkedAlertId: 'alt-04',
+    timeframe: 'Próximas 48 horas',
+  },
+  {
+    id: 'rec-prensa-nacional',
+    title: 'Aprovechar cobertura neutral de El Universal',
+    category: 'narrativa',
+    urgency: 'baja',
+    summary: 'El Universal publicó reportaje biográfico con tono neutral. Oportunidad para reforzar mensaje de trayectoria en la conversación pública.',
+    actions: [
+      'Compartir la nota en redes propias con quote seleccionada',
+      'Enviar agradecimiento privado a la reportera y ofrecer entrevista de seguimiento',
+      'Producir 3 piezas de contenido derivadas (video, carrusel, hilo)',
+    ],
+    linkedAlertId: 'alt-05',
+    timeframe: 'Esta semana',
+  },
+  {
+    id: 'rec-desinformacion',
+    title: 'Respuesta a ataque coordinado #FueraDamian',
+    category: 'crisis',
+    urgency: 'alta',
+    summary: 'Se detectó red de 89 cuentas con patrón de bot. El hashtag creció +120%. No es orgánico y podemos denunciarlo con evidencia.',
+    actions: [
+      'Compilar evidencia técnica de las 89 cuentas (fecha creación, patrón horario)',
+      'Reportar a plataformas (X, Meta) el ataque coordinado',
+      'Publicar comunicado con datos abiertos denunciando la operación',
+      'Coordinar respuesta orgánica con base propia (sin hashtag oficial de respuesta)',
+    ],
+    linkedAlertId: 'alt-06',
+    timeframe: 'Próximas 24 horas',
+  },
+  {
+    id: 'rec-agenda-mujeres',
+    title: 'Consolidar agenda de gabinete paritario',
+    category: 'contenido',
+    urgency: 'media',
+    summary: 'El anuncio de gabinete paritario tuvo cobertura positiva en El Universal. Momentum para amplificar y consolidar posición.',
+    actions: [
+      'Serie de 5 videos con perfiles preliminares de mujeres del gabinete',
+      'Alianzas con colectivos feministas para respaldo público',
+      'Entrevistas exclusivas con 2 revistas de opinión',
+    ],
+    timeframe: 'Próximas 2 semanas',
+  },
+  {
+    id: 'rec-operativa-territorio',
+    title: 'Densificar presencia territorial en La Montaña',
+    category: 'operacion',
+    urgency: 'baja',
+    summary: 'La Montaña muestra el sentimiento positivo más alto (+5.2 pts) pero también menor volumen de menciones. Oportunidad para consolidar.',
+    actions: [
+      'Programar 3 recorridos comunitarios en el próximo mes',
+      'Producir contenido en lenguas indígenas para amplificar en redes',
+      'Coordinar con líderes tradicionales identificados',
+    ],
+    timeframe: 'Próximo mes',
+  },
+];
+
+export type Statement = {
+  candidateId: string;
+  candidateName: string;
+  party: string;
+  headline: string;
+  quote: string;
+  source: string;
+  time: string;
+  tier: MediaTier;
+};
+
+export const importantStatements: Statement[] = [
+  {
+    candidateId: 'competitor-1',
+    candidateName: 'Competidor A',
+    party: 'Partido A',
+    headline: 'Anuncia programa emergente contra la violencia en zonas rurales',
+    quote: 'La seguridad no espera: en 100 días tendremos operativos permanentes en las 8 regiones del estado.',
+    source: 'Milenio',
+    time: '11:15 AM',
+    tier: 'nacional-print',
+  },
+  {
+    candidateId: 'competitor-2',
+    candidateName: 'Competidor B',
+    party: 'Partido B',
+    headline: 'Propone reformar la ley de participación ciudadana',
+    quote: 'Devolveremos a las comunidades el poder de decisión sobre su presupuesto.',
+    source: 'Reforma',
+    time: '10:40 AM',
+    tier: 'nacional-print',
+  },
+];
+
+export const politicalPostulations: { candidateId: string; declaration: string; date: string }[] = [
+  { candidateId: 'competitor-1', declaration: 'Registro formal ante la autoridad electoral pendiente. Precampaña activa desde marzo.', date: 'Actualizado hoy' },
+  { candidateId: 'competitor-2', declaration: 'Formalizó postulación oficial la semana pasada. Coalición ya inscrita.', date: 'Actualizado hoy' },
 ];
 
 export const navItems = [
@@ -182,74 +413,98 @@ export const recentMentions = [
 ];
 
 export const allNews = [
-  { title: 'Esthela Damián presenta plan integral de seguridad estatal', source: 'El Sur de Guerrero', time: '10:02 AM', sentiment: 'POSITIVA', summary: 'La candidata detalló propuestas específicas para reducir violencia en zonas críticas del estado.' },
-  { title: 'Críticas por declaración sobre transporte público en foro empresarial', source: 'Diario 21', time: '09:15 AM', sentiment: 'NEGATIVA', summary: 'Sector transportista rechaza propuestas de modernización tarifaria mencionadas por Damián.' },
-  { title: 'Empresarios respaldan propuestas económicas de Damián', source: 'Negocios Guerrero', time: '08:40 AM', sentiment: 'NEUTRAL', summary: 'Cámara de Comercio expresa interés en el plan de incentivos fiscales para PYMEs.' },
-  { title: 'Damián lidera en encuestas con 4 puntos sobre competencia', source: 'Milenio', time: '08:15 AM', sentiment: 'POSITIVA', summary: 'Última medición de intención de voto la coloca como favorita.' },
-  { title: 'Debate sobre financiamiento de campaña genera polémica', source: 'Reforma', time: '07:50 AM', sentiment: 'NEGATIVA', summary: 'Cuestionan origen de recursos para spots publicitarios recientes.' },
-  { title: 'Damián visita comunidades indígenas de la Montaña', source: 'La Jornada Guerrero', time: '07:20 AM', sentiment: 'POSITIVA', summary: 'Recorrido incluye 4 municipios y encuentros con líderes tradicionales.' },
-  { title: 'Anuncia gabinete técnico paritario si gana elecciones', source: 'Excélsior', time: '06:45 AM', sentiment: 'POSITIVA', summary: 'Presentó lista preliminar con 50% mujeres y perfiles académicos destacados.' },
-  { title: 'Movimiento juvenil convoca marcha por transparencia', source: 'Proceso', time: '06:20 AM', sentiment: 'NEUTRAL', summary: 'Piden a todos los candidatos publicar declaraciones patrimoniales completas.' },
+  { title: 'Noticieros Televisa reporta el plan integral de seguridad estatal de Damián', source: 'Noticieros Televisa', tier: 'nacional-tv' as MediaTier, time: '10:02 AM', sentiment: 'POSITIVA', summary: 'Cobertura en horario estelar. La candidata detalló propuestas específicas para reducir violencia en zonas críticas del estado.' },
+  { title: 'TV Azteca abre noticiario con visita de Damián a la Montaña', source: 'Hechos AM · TV Azteca', tier: 'nacional-tv' as MediaTier, time: '07:20 AM', sentiment: 'POSITIVA', summary: 'Nota de dos minutos con recorrido por comunidades indígenas y encuentros con líderes tradicionales.' },
+  { title: 'Reforma cuestiona financiamiento de campaña y compra de spots', source: 'Reforma', tier: 'nacional-print' as MediaTier, time: '07:50 AM', sentiment: 'NEGATIVA', summary: 'Investigación cuestiona el origen de recursos para spots publicitarios recientes en televisión abierta.' },
+  { title: 'El Universal: Damián anuncia gabinete técnico paritario', source: 'El Universal', tier: 'nacional-print' as MediaTier, time: '06:45 AM', sentiment: 'POSITIVA', summary: 'Presentó lista preliminar con 50% mujeres y perfiles académicos destacados para las principales carteras.' },
+  { title: 'Milenio: Damián lidera en encuestas con 4 puntos sobre competencia', source: 'Milenio', tier: 'nacional-print' as MediaTier, time: '08:15 AM', sentiment: 'POSITIVA', summary: 'Última medición de intención de voto de la casa encuestadora la coloca como favorita del proceso.' },
+  { title: 'Cámara de Comercio de Guerrero respalda propuestas económicas', source: 'El Sur de Guerrero', tier: 'regional' as MediaTier, time: '08:40 AM', sentiment: 'NEUTRAL', summary: 'Sector empresarial expresa interés en el plan de incentivos fiscales para PYMEs presentado en foro.' },
+  { title: 'Sector transportista rechaza modernización tarifaria propuesta', source: 'Diario 21', tier: 'regional' as MediaTier, time: '09:15 AM', sentiment: 'NEGATIVA', summary: 'Concesionarios de rutas urbanas rechazan propuestas de Damián en foro con empresarios.' },
+  { title: 'Movimiento juvenil convoca a marcha por transparencia', source: 'Portal Ciudadano', tier: 'digital-medio' as MediaTier, time: '06:20 AM', sentiment: 'NEUTRAL', summary: 'Colectivos piden a todos los candidatos publicar declaraciones patrimoniales completas antes del proceso.' },
+  { title: 'Influencer local viraliza video crítico sobre Damián', source: '@guerrero_hoy · X', tier: 'influencer' as MediaTier, time: '05:40 AM', sentiment: 'NEGATIVA', summary: 'Publicación de creador con 340k seguidores acumula 25k reproducciones en cuatro horas.' },
 ];
 
 export const allAlerts = [
   {
-    title: 'Alerta Naranja · Transporte Público',
-    description: 'Crecimiento rápido en la conversación negativa. Velocidad: 38% en la última hora. Volumen actual: 2,340 menciones.',
-    time: 'Hace 15 min',
-    severity: 'orange',
-    zone: 'Nacional',
-    trend: '+38%',
-  },
-  {
-    title: 'Alerta Amarilla · Seguridad',
-    description: 'Video crítico comienza a tomar alcance en redes sociales. 12,500 views en 40 minutos.',
-    time: 'Hace 42 min',
-    severity: 'yellow',
+    id: 'alt-01',
+    what: 'Crecimiento acelerado de conversación negativa sobre transporte público (+38% en la última hora, 2,340 menciones)',
+    who: 'Sector transportista de Guerrero + prensa regional (Diario 21, El Sur)',
+    risk: 'Alto · impacto reputacional en 24h · puede escalar a nacional',
     zone: 'Guerrero',
-    trend: '+22%',
+    time: 'Hace 15 min',
+    severity: 'orange' as AlertSeverity,
+    recommendationId: 'rec-transporte',
   },
   {
-    title: 'Alerta Informativa · Competencia',
-    description: 'Competidor A anunció evento masivo para mañana en tu bastión. Estimado: 5,000 asistentes.',
-    time: 'Hace 1 h',
-    severity: 'blue',
-    zone: 'Chilpancingo',
-    trend: '—',
-  },
-  {
-    title: 'Alerta Amarilla · Menciones negativas',
-    description: 'Incremento en menciones negativas sobre financiamiento. Origen: cuentas de derecha en X.',
-    time: 'Hace 2 h',
-    severity: 'yellow',
-    zone: 'Nacional',
-    trend: '+18%',
-  },
-  {
-    title: 'Alerta Informativa · Prensa',
-    description: 'El Universal publica investigación sobre trayectoria política. Tono neutral.',
-    time: 'Hace 3 h',
-    severity: 'blue',
-    zone: 'Nacional',
-    trend: '—',
-  },
-  {
-    title: 'Alerta Naranja · Ataque coordinado',
-    description: 'Detectada campaña coordinada de desinformación con hashtag #FueraDamian. 89 cuentas identificadas.',
-    time: 'Hace 4 h',
-    severity: 'orange',
+    id: 'alt-02',
+    what: 'Video crítico toma alcance en redes: 12,500 views en 40 minutos',
+    who: 'Creador @guerrero_hoy (340k seguidores) + réplicas en TikTok',
+    risk: 'Medio · viralización probable en 6h',
     zone: 'Digital',
-    trend: '+120%',
+    time: 'Hace 42 min',
+    severity: 'yellow' as AlertSeverity,
+    recommendationId: 'rec-video-critico',
+  },
+  {
+    id: 'alt-03',
+    what: 'Competidor anunció evento masivo (~5,000 asistentes) en tu bastión',
+    who: 'Aspirante rival · Chilpancingo · mañana 6:00 PM',
+    risk: 'Bajo · disputa de agenda mediática del día',
+    zone: 'Chilpancingo',
+    time: 'Hace 1 h',
+    severity: 'blue' as AlertSeverity,
+    recommendationId: 'rec-competencia',
+  },
+  {
+    id: 'alt-04',
+    what: 'Incremento sostenido de menciones negativas sobre financiamiento de campaña',
+    who: 'Cuentas críticas coordinadas en X + reporte de Reforma',
+    risk: 'Medio · afecta narrativa de transparencia',
+    zone: 'Nacional',
+    time: 'Hace 2 h',
+    severity: 'yellow' as AlertSeverity,
+    recommendationId: 'rec-financiamiento',
+  },
+  {
+    id: 'alt-05',
+    what: 'El Universal publica investigación sobre trayectoria política (tono neutral)',
+    who: 'El Universal · sección Nación',
+    risk: 'Bajo · oportunidad de reforzar contexto biográfico',
+    zone: 'Nacional',
+    time: 'Hace 3 h',
+    severity: 'blue' as AlertSeverity,
+    recommendationId: 'rec-prensa-nacional',
+  },
+  {
+    id: 'alt-06',
+    what: 'Campaña coordinada de desinformación con hashtag #FueraDamian (+120%)',
+    who: '89 cuentas identificadas en X con patrón de bot · origen Guerrero/CDMX',
+    risk: 'Alto · ataque orgánico simulado, requiere respuesta',
+    zone: 'Digital',
+    time: 'Hace 4 h',
+    severity: 'orange' as AlertSeverity,
+    recommendationId: 'rec-desinformacion',
   },
 ] as const;
 
-export const sentimentByRegion = [
-  { region: 'Guerrero', positive: 62, neutral: 22, negative: 16 },
-  { region: 'Ciudad de México', positive: 45, neutral: 30, negative: 25 },
-  { region: 'Morelos', positive: 58, neutral: 24, negative: 18 },
-  { region: 'Oaxaca', positive: 51, neutral: 27, negative: 22 },
-  { region: 'Puebla', positive: 43, neutral: 31, negative: 26 },
-  { region: 'Estado de México', positive: 39, neutral: 33, negative: 28 },
+// Foco geográfico del candidato: municipios/estados donde compite
+// - Candidato estatal (gubernatura) → breakdown por municipios del estado
+// - Candidato municipal (alcaldía) → breakdown por colonias/distritos
+export const candidateScope = {
+  level: 'estatal' as 'estatal' | 'municipal',
+  area: 'Guerrero',
+  breakdownLabel: 'municipios',
+};
+
+export const sentimentByArea = [
+  { area: 'Chilpancingo',   positive: 62, neutral: 22, negative: 16, mentions: 8420, trend: '+4.1 pts' },
+  { area: 'Acapulco',       positive: 54, neutral: 24, negative: 22, mentions: 12580, trend: '+2.0 pts' },
+  { area: 'Iguala',         positive: 58, neutral: 25, negative: 17, mentions: 3210, trend: '+1.5 pts' },
+  { area: 'Zihuatanejo',    positive: 61, neutral: 21, negative: 18, mentions: 2440, trend: '+3.2 pts' },
+  { area: 'Taxco',          positive: 48, neutral: 28, negative: 24, mentions: 1650, trend: '-0.8 pts' },
+  { area: 'Tlapa',          positive: 51, neutral: 27, negative: 22, mentions: 1240, trend: '+1.1 pts' },
+  { area: 'Costa Chica',    positive: 44, neutral: 31, negative: 25, mentions: 980,  trend: '-1.4 pts' },
+  { area: 'La Montaña',     positive: 66, neutral: 20, negative: 14, mentions: 810,  trend: '+5.2 pts' },
 ];
 
 export const sentimentByTopic = [

@@ -6,6 +6,8 @@ import { SentimientoPage } from './pages/SentimientoPage';
 import { NoticiasPage } from './pages/NoticiasPage';
 import { AlertasPage } from './pages/AlertasPage';
 import { PerfilPage } from './pages/PerfilPage';
+import { RecomendacionesPage } from './pages/RecomendacionesPage';
+import { CompetenciaPage } from './pages/CompetenciaPage';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route path="/sentimiento" element={<SentimientoPage />} />
           <Route path="/noticias" element={<NoticiasPage />} />
           <Route path="/alertas" element={<AlertasPage />} />
+          <Route path="/recomendaciones" element={<RecomendacionesPage />} />
+          <Route path="/competencia" element={<CompetenciaPage />} />
           <Route path="/perfil" element={<PerfilPage />} />
         </Route>
       </Routes>
