@@ -1,5 +1,6 @@
-import { Link } from 'react-router-dom';
-import { topNews, mediaTierMeta } from '../data/mockData';
+import { Link, useParams } from 'react-router-dom';
+import { mediaTierMeta } from '../data/mockData';
+import { useActiveProfile } from '../hooks/useActiveProfile';
 
 const BADGE: Record<string, string> = {
   POSITIVA: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
@@ -8,11 +9,13 @@ const BADGE: Record<string, string> = {
 };
 
 export function TopNewsPanel() {
+  const { topNews } = useActiveProfile();
+  const { slug } = useParams<{ slug: string }>();
   return (
     <div className="card p-3 h-full flex flex-col">
       <div className="flex items-center justify-between mb-3 gap-2">
         <h3 className="text-[12px] font-semibold text-gray-200 truncate">Noticias principales del día</h3>
-        <Link to="/noticias" className="text-[10px] text-violet-400 hover:text-violet-300 shrink-0 whitespace-nowrap">Ver todas</Link>
+        <Link to={`/c/${slug}/noticias`} className="text-[10px] text-violet-400 hover:text-violet-300 shrink-0 whitespace-nowrap">Ver todas</Link>
       </div>
       <div className="flex-1 flex flex-col gap-2.5">
         {topNews.map((n, i) => {

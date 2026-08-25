@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Bell, AlertCircle, AlertTriangle, Info, MapPin, Check, ArrowRight, ShieldAlert, Users } from 'lucide-react';
-import { allAlerts, recommendations } from '../data/mockData';
+import { useActiveProfile } from '../hooks/useActiveProfile';
 
 const SEV = {
   orange: { Icon: AlertCircle, bg: 'bg-orange-500/15', ring: 'border-orange-500/30', text: 'text-orange-400', label: 'Naranja', riskLabel: 'Alto' },
@@ -8,14 +8,17 @@ const SEV = {
   blue: { Icon: Info, bg: 'bg-blue-500/15', ring: 'border-blue-500/30', text: 'text-blue-400', label: 'Informativa', riskLabel: 'Bajo' },
 } as const;
 
-const FILTERS = [
-  { label: 'Todas', count: allAlerts.length },
-  { label: 'Naranjas', count: allAlerts.filter((a) => a.severity === 'orange').length },
-  { label: 'Amarillas', count: allAlerts.filter((a) => a.severity === 'yellow').length },
-  { label: 'Informativas', count: allAlerts.filter((a) => a.severity === 'blue').length },
-];
-
 export function AlertasPage() {
+  const { allAlerts, recommendations } = useActiveProfile();
+  const { slug } = useParams<{ slug: string }>();
+
+  const FILTERS = [
+    { label: 'Todas', count: allAlerts.length },
+    { label: 'Naranjas', count: allAlerts.filter((a) => a.severity === 'orange').length },
+    { label: 'Amarillas', count: allAlerts.filter((a) => a.severity === 'yellow').length },
+    { label: 'Informativas', count: allAlerts.filter((a) => a.severity === 'blue').length },
+  ];
+
   return (
     <div className="p-4 flex flex-col gap-3">
       <div className="flex items-center justify-between">
@@ -104,7 +107,7 @@ export function AlertasPage() {
                 {hasRecommendation && (
                   <div className="mt-3 flex items-center gap-2 pt-3 border-t border-[#1a1f2b]">
                     <Link
-                      to="/recomendaciones"
+                      to={`/c/${slug}/recomendaciones`}
                       className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-violet-500/10 border border-violet-500/30 text-violet-300 text-[11px] hover:bg-violet-500/20 transition-colors"
                     >
                       <span>Ver recomendación</span>

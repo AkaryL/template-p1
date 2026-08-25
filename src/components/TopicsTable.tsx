@@ -1,6 +1,7 @@
-import { topics } from '../data/mockData';
+import { useActiveProfile } from '../hooks/useActiveProfile';
 
 export function TopicsTable() {
+  const { topics } = useActiveProfile();
   return (
     <div className="card p-3 h-full flex flex-col">
       <div className="flex items-center justify-between mb-3 gap-2">

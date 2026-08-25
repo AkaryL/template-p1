@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import cloud from 'd3-cloud';
-import { wordCloud } from '../data/mockData';
+import { useActiveProfile } from '../hooks/useActiveProfile';
 
 interface Placed {
   text: string;
@@ -12,6 +12,7 @@ interface Placed {
 }
 
 export function WordCloud() {
+  const { wordCloud } = useActiveProfile();
   const containerRef = useRef<HTMLDivElement>(null);
   const [words, setWords] = useState<Placed[]>([]);
   const [dims, setDims] = useState({ w: 320, h: 220 });
@@ -53,7 +54,7 @@ export function WordCloud() {
     return () => {
       layout.stop();
     };
-  }, [dims]);
+  }, [dims, wordCloud]);
 
   return (
     <div className="card p-3 h-full flex flex-col">

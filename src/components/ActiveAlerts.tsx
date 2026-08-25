@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AlertCircle, AlertTriangle, Info, ArrowRight, ShieldAlert } from 'lucide-react';
-import { alerts } from '../data/mockData';
+import { useActiveProfile } from '../hooks/useActiveProfile';
 
 const SEV = {
   orange: { Icon: AlertCircle, bg: 'bg-orange-500/15', ring: 'border-orange-500/30', text: 'text-orange-400', label: 'Alto' },
@@ -9,11 +9,13 @@ const SEV = {
 } as const;
 
 export function ActiveAlerts() {
+  const { alerts } = useActiveProfile();
+  const { slug } = useParams<{ slug: string }>();
   return (
     <div className="card p-3 h-full flex flex-col">
       <div className="flex items-center justify-between mb-3 gap-2">
         <h3 className="text-[13px] font-semibold text-gray-200 truncate">Alertas activas</h3>
-        <Link to="/alertas" className="text-[11px] text-violet-400 hover:text-violet-300 shrink-0 whitespace-nowrap">Ver todas</Link>
+        <Link to={`/c/${slug}/alertas`} className="text-[11px] text-violet-400 hover:text-violet-300 shrink-0 whitespace-nowrap">Ver todas</Link>
       </div>
       <div className="flex-1 flex flex-col gap-2.5">
         {alerts.map((a) => {
@@ -43,7 +45,7 @@ export function ActiveAlerts() {
         })}
       </div>
       <Link
-        to="/alertas"
+        to={`/c/${slug}/alertas`}
         className="mt-3 w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-[#141824] border border-violet-500/30 text-violet-300 text-xs hover:bg-violet-500/10 transition-colors"
       >
         <span>Ver todas las alertas</span>

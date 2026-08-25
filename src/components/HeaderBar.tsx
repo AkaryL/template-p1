@@ -1,19 +1,28 @@
 import { BadgeCheck, Calendar, MapPin, Share2, ChevronDown } from 'lucide-react';
-import { candidate } from '../data/mockData';
+import { useActiveProfile } from '../hooks/useActiveProfile';
 
 export function HeaderBar() {
+  const { candidate, candidateScope } = useActiveProfile();
+  const areaLabel = candidateScope.level === 'estatal' ? candidateScope.area : `${candidateScope.area} · ZMG`;
+
   return (
     <div className="flex flex-col gap-3 min-w-0">
       <div className="flex items-start gap-4 min-w-0">
         <div className="w-[72px] h-[72px] rounded-xl overflow-hidden shrink-0 border border-white/10 relative bg-slate-800">
-          <img
-            src={candidate.photoUrl}
-            alt={candidate.name}
-            className="w-full h-full object-cover"
-            onError={(e) => {
-              (e.currentTarget as HTMLImageElement).style.display = 'none';
-            }}
-          />
+          {candidate.photoUrl ? (
+            <img
+              src={candidate.photoUrl}
+              alt={candidate.name}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div
+              className="w-full h-full flex items-center justify-center text-white text-[28px] font-black tracking-tight"
+              style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #0891b2 100%)' }}
+            >
+              {candidate.photoInitials}
+            </div>
+          )}
         </div>
 
         <div className="flex-1 min-w-0 flex flex-col justify-center">
@@ -30,7 +39,7 @@ export function HeaderBar() {
 
         <div className="flex items-center gap-1.5 shrink-0">
           <FilterPill icon={<Calendar size={12} />} label="Hoy, 20 May" />
-          <FilterPill icon={<MapPin size={12} />} label="Todo el país" />
+          <FilterPill icon={<MapPin size={12} />} label={areaLabel} />
           <button className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-violet-600 text-white text-xs font-medium hover:bg-violet-500 transition-colors whitespace-nowrap">
             <Share2 size={12} />
             <span>Compartir</span>

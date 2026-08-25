@@ -1,11 +1,13 @@
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, LineChart, Line, CartesianGrid, Legend } from 'recharts';
 import { Heart, TrendingUp, Search, Filter, MapPin } from 'lucide-react';
-import { sentimentSeries, sentimentByArea, sentimentByTopic, recentMentions, candidateScope } from '../data/mockData';
+import { sentimentSeries } from '../data/mockData';
+import { useActiveProfile } from '../hooks/useActiveProfile';
 
 const PLATFORM_COLORS: Record<string, string> = { x: '#1d9bf0', facebook: '#1877f2', instagram: '#e1306c' };
 const SENTIMENT_COLORS: Record<string, string> = { positivo: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30', negativo: 'text-red-400 bg-red-500/10 border-red-500/30', neutral: 'text-gray-300 bg-gray-500/10 border-gray-500/30' };
 
 export function SentimientoPage() {
+  const { candidateScope, sentimentByArea, sentimentByTopic, recentMentions } = useActiveProfile();
   return (
     <div className="p-4 flex flex-col gap-3">
       <div className="flex items-center justify-between">

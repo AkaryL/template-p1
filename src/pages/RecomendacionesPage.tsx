@@ -1,7 +1,8 @@
 import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Target, AlertCircle, AlertTriangle, Info, Clock, CheckCircle2, ArrowRight, ShieldAlert } from 'lucide-react';
-import { recommendations, allAlerts, suggestedActions, type RecommendationUrgency, type RecommendationCategory } from '../data/mockData';
+import { type RecommendationUrgency, type RecommendationCategory } from '../data/mockData';
+import { useActiveProfile } from '../hooks/useActiveProfile';
 
 const URGENCY: Record<RecommendationUrgency, { label: string; bg: string; border: string; text: string; Icon: typeof AlertCircle }> = {
   alta: { label: 'URGENTE', bg: 'bg-orange-500/15', border: 'border-orange-500/40', text: 'text-orange-300', Icon: AlertCircle },
@@ -25,6 +26,8 @@ const FILTERS: { key: 'all' | RecommendationUrgency; label: string }[] = [
 ];
 
 export function RecomendacionesPage() {
+  const { recommendations, allAlerts, suggestedActions } = useActiveProfile();
+  const { slug } = useParams<{ slug: string }>();
   const [filter, setFilter] = useState<'all' | RecommendationUrgency>('all');
 
   const filtered = useMemo(() => {
@@ -34,7 +37,7 @@ export function RecomendacionesPage() {
       return [...recommendations].sort((a, b) => order[a.urgency] - order[b.urgency]);
     }
     return recommendations.filter((r) => r.urgency === filter);
-  }, [filter]);
+  }, [filter, recommendations]);
 
   const counts = useMemo(
     () => ({
@@ -42,7 +45,7 @@ export function RecomendacionesPage() {
       media: recommendations.filter((r) => r.urgency === 'media').length,
       baja: recommendations.filter((r) => r.urgency === 'baja').length,
     }),
-    [],
+    [recommendations],
   );
 
   return (
@@ -131,7 +134,7 @@ export function RecomendacionesPage() {
                             <span className="text-gray-300 truncate">{alert.what.slice(0, 60)}…</span>
                           </div>
                           <Link
-                            to="/alertas"
+                            to={`/c/${slug}/alertas`}
                             className="text-[11px] text-violet-400 hover:text-violet-300 whitespace-nowrap shrink-0"
                           >
                             Ver alerta →
@@ -182,11 +185,11 @@ export function RecomendacionesPage() {
           <div className="card p-4">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-[13px] font-semibold text-gray-200">Alertas sin recomendación asignada</h3>
-              <Link to="/alertas" className="text-[10px] text-violet-400 hover:text-violet-300">Ir a Alertas</Link>
+              <Link to={`/c/${slug}/alertas`} className="text-[10px] text-violet-400 hover:text-violet-300">Ir a Alertas</Link>
             </div>
             <p className="text-[11px] text-gray-500 mb-2">Todas las alertas actuales ya tienen una recomendación asociada.</p>
             <Link
-              to="/alertas"
+              to={`/c/${slug}/alertas`}
               className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-md bg-[#141824] border border-[#232a3a] text-gray-300 text-[11px] hover:bg-[#1a1f2b]"
             >
               <span>Revisar alertas activas</span>

@@ -1,7 +1,8 @@
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import { ChevronDown, Plus, Minus } from 'lucide-react';
 import geoData from '../data/mexico-states.json';
-import { stateSentiment, sentimentColor } from '../data/mockData';
+import { sentimentColor } from '../data/mockData';
+import { useActiveProfile } from '../hooks/useActiveProfile';
 
 const LEGEND = [
   { color: '#16a34a', label: 'Muy positivo' },
@@ -12,6 +13,8 @@ const LEGEND = [
 ];
 
 export function MexicoMap() {
+  const { stateFocus } = useActiveProfile();
+  const stateSentiment = (name: string) => stateFocus[name] ?? Math.sin(name.length * 3.7) * 0.5;
   return (
     <div className="card p-3 h-full flex flex-col">
       <div className="flex items-center justify-between mb-3 gap-2">

@@ -1,18 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { HiOutlineViewGrid, HiOutlineChartBar, HiOutlineNewspaper, HiOutlineBell, HiOutlineChevronDown, HiOutlineDownload, HiOutlineLogout, HiOutlineUser, HiOutlineLightBulb, HiOutlineUsers } from 'react-icons/hi';
+import { DEFAULT_SLUG } from '../data/profiles';
+import { useActiveProfile } from '../hooks/useActiveProfile';
 
-const NAV: { id: string; label: string; Icon: typeof HiOutlineViewGrid; to: string; badge?: number }[] = [
-  { id: 'resumen', label: 'Resumen', Icon: HiOutlineViewGrid, to: '/' },
-  { id: 'sentimiento', label: 'Sentimiento', Icon: HiOutlineChartBar, to: '/sentimiento' },
-  { id: 'noticias', label: 'Noticias', Icon: HiOutlineNewspaper, to: '/noticias' },
-  { id: 'alertas', label: 'Alertas', Icon: HiOutlineBell, to: '/alertas', badge: 3 },
-  { id: 'recomendaciones', label: 'Recomendaciones', Icon: HiOutlineLightBulb, to: '/recomendaciones' },
-  { id: 'competencia', label: 'Competencia', Icon: HiOutlineUsers, to: '/competencia' },
+const NAV: { id: string; label: string; Icon: typeof HiOutlineViewGrid; path: string; badge?: number }[] = [
+  { id: 'resumen', label: 'Resumen', Icon: HiOutlineViewGrid, path: '' },
+  { id: 'sentimiento', label: 'Sentimiento', Icon: HiOutlineChartBar, path: 'sentimiento' },
+  { id: 'noticias', label: 'Noticias', Icon: HiOutlineNewspaper, path: 'noticias' },
+  { id: 'alertas', label: 'Alertas', Icon: HiOutlineBell, path: 'alertas', badge: 3 },
+  { id: 'recomendaciones', label: 'Recomendaciones', Icon: HiOutlineLightBulb, path: 'recomendaciones' },
+  { id: 'competencia', label: 'Competencia', Icon: HiOutlineUsers, path: 'competencia' },
 ];
 
 export function Sidebar() {
   const navigate = useNavigate();
+  const { slug } = useParams<{ slug: string }>();
+  const activeSlug = slug ?? DEFAULT_SLUG;
+  const profile = useActiveProfile();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -26,6 +31,8 @@ export function Sidebar() {
     document.addEventListener('mousedown', onClick);
     return () => document.removeEventListener('mousedown', onClick);
   }, [menuOpen]);
+
+  const buildPath = (p: string) => (p ? `/c/${activeSlug}/${p}` : `/c/${activeSlug}`);
 
   return (
     <aside className="w-[190px] shrink-0 h-screen flex flex-col bg-[#0b0e14] border-r border-[#1a1f2b] px-3 py-3 overflow-hidden">
@@ -46,19 +53,28 @@ export function Sidebar() {
         <span className="text-red-400 text-[10px] font-semibold tracking-wide uppercase">En vivo</span>
       </div>
 
-      <div className="mb-3">
-        <p className="text-[9px] text-gray-500 leading-tight">Última actualización</p>
-        <p className="text-[11px] text-gray-300 font-medium">10:24:18 AM</p>
+      <div className="mb-3 pb-3 border-b border-[#1a1f2b]">
+        <p className="text-[9px] text-gray-500 leading-tight uppercase tracking-wider">Monitoreando</p>
+        <p className="text-[12px] text-white font-semibold truncate mt-0.5" title={profile.candidate.name}>
+          {profile.candidate.name}
+        </p>
+        <button
+          onClick={() => navigate(`/c/${activeSlug}/perfil`)}
+          className="text-[10px] text-violet-400 hover:text-violet-300 mt-0.5"
+        >
+          Cambiar candidato →
+        </button>
       </div>
 
       <nav className="flex-1 flex flex-col gap-0.5 min-h-0">
         {NAV.map((item) => {
           const { Icon } = item;
+          const to = buildPath(item.path);
           return (
             <NavLink
               key={item.id}
-              to={item.to}
-              end={item.to === '/'}
+              to={to}
+              end={item.path === ''}
               className={({ isActive }) =>
                 `flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[12px] font-medium transition-colors relative ${
                   isActive
@@ -85,7 +101,7 @@ export function Sidebar() {
             <button
               onClick={() => {
                 setMenuOpen(false);
-                navigate('/perfil');
+                navigate(`/c/${activeSlug}/perfil`);
               }}
               className="w-full flex items-center gap-2 px-3 py-2 text-[12px] text-gray-300 hover:bg-white/5 transition-colors"
             >

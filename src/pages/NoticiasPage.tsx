@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { Newspaper, Search, ExternalLink, Bookmark, SlidersHorizontal } from 'lucide-react';
-import { allNews, mediaTierMeta, type MediaTier } from '../data/mockData';
+import { mediaTierMeta, type MediaTier } from '../data/mockData';
+import { useActiveProfile } from '../hooks/useActiveProfile';
 
 const BADGE: Record<string, string> = {
   POSITIVA: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
@@ -25,6 +26,7 @@ const TIER_FILTERS: { key: MediaTier | 'all'; label: string }[] = [
 ];
 
 export function NoticiasPage() {
+  const { allNews } = useActiveProfile();
   const [sentimentFilter, setSentimentFilter] = useState<'all' | 'POSITIVA' | 'NEGATIVA' | 'NEUTRAL'>('all');
   const [tierFilter, setTierFilter] = useState<MediaTier | 'all'>('all');
   const [sortByWeight, setSortByWeight] = useState(true);
@@ -35,7 +37,7 @@ export function NoticiasPage() {
     if (tierFilter !== 'all') arr = arr.filter((n) => n.tier === tierFilter);
     if (sortByWeight) arr.sort((a, b) => mediaTierMeta[b.tier].weight - mediaTierMeta[a.tier].weight);
     return arr;
-  }, [sentimentFilter, tierFilter, sortByWeight]);
+  }, [sentimentFilter, tierFilter, sortByWeight, allNews]);
 
   return (
     <div className="p-4 flex flex-col gap-3">

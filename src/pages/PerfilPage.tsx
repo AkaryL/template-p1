@@ -1,14 +1,17 @@
-import { useState } from 'react';
-import { HiOutlineMail, HiOutlineCalendar, HiCheck, HiUsers } from 'react-icons/hi';
+import { useNavigate, useParams } from 'react-router-dom';
+import { HiOutlineMail, HiOutlineCalendar, HiCheck, HiUsers, HiArrowRight } from 'react-icons/hi';
 import { HiArrowTrendingUp, HiArrowTrendingDown } from 'react-icons/hi2';
-import { analyst, candidate, politicians, activeSubscription, type Politician } from '../data/mockData';
+import { analyst } from '../data/mockData';
+import { profiles, type Profile } from '../data/profiles';
+import { useActiveProfile } from '../hooks/useActiveProfile';
 
 export function PerfilPage() {
+  const active = useActiveProfile();
   return (
     <div className="p-4 flex flex-col gap-5">
       <ProfileHeader />
-      <ActivePlan />
-      <Marketplace />
+      <ActiveCandidate active={active} />
+      <Switcher activeSlug={active.slug} />
     </div>
   );
 }
@@ -40,164 +43,161 @@ function ProfileHeader() {
   );
 }
 
-function ActivePlan() {
-  const pct = (activeSubscription.daysRemaining / activeSubscription.totalDays) * 100;
+function ActiveCandidate({ active }: { active: Profile }) {
+  const worstTopic = active.topics.reduce((a, b) => (a.sentiment < b.sentiment ? a : b));
+  const bestTopic = active.topics.reduce((a, b) => (a.sentiment > b.sentiment ? a : b));
+
   return (
     <div>
       <div className="flex items-baseline justify-between mb-3">
-        <h2 className="text-[14px] font-semibold text-white">Plan actual</h2>
-        <span className="text-[11px] text-gray-500">Termina en {activeSubscription.daysRemaining} días</span>
+        <h2 className="text-[14px] font-semibold text-white">Candidato que estás monitoreando</h2>
+        <span className="text-[11px] text-emerald-400 flex items-center gap-1">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          Monitoreo activo
+        </span>
       </div>
-      <div className="card p-4 flex items-start gap-4">
-        <div className="w-16 h-16 rounded-md overflow-hidden shrink-0 border border-white/10 bg-slate-800">
-          <img src={candidate.photoUrl} alt={candidate.name} className="w-full h-full object-cover" />
-        </div>
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-amber-500/15 border border-amber-500/30 text-amber-300 uppercase tracking-wider">
-              Prueba gratuita
-            </span>
-            <span className="text-[11px] text-gray-500">
-              {activeSubscription.daysRemaining} de {activeSubscription.totalDays} días restantes
-            </span>
-          </div>
-          <h3 className="text-white text-[16px] font-semibold leading-tight">{candidate.name}</h3>
-          <p className="text-gray-400 text-[12px] mt-0.5">{candidate.role} · {candidate.eleccion}</p>
-
-          <div className="mt-3 h-1 rounded-full bg-[#1f2533] overflow-hidden max-w-md">
-            <div className="h-full rounded-full bg-amber-500" style={{ width: `${pct}%` }} />
-          </div>
-
-          <ul className="grid grid-cols-2 gap-x-4 gap-y-1 mt-3 max-w-lg">
-            {activeSubscription.features.map((f) => (
-              <li key={f} className="flex items-center gap-1.5 text-[12px] text-gray-400">
-                <HiCheck size={12} className="text-emerald-400 shrink-0" />
-                {f}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="flex flex-col items-end gap-2 shrink-0">
-          <div className="text-right">
-            <p className="text-white text-[20px] font-bold leading-none">$0<span className="text-[13px] text-gray-500 font-normal ml-0.5">/mes</span></p>
-            <p className="text-[10px] text-gray-500 mt-0.5">Cambia a $1,999/mes al terminar</p>
-          </div>
-          <button className="mt-1 px-3 py-1.5 rounded-md bg-violet-600 text-white text-xs font-semibold hover:bg-violet-500">
-            Ver planes
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Marketplace() {
-  const [contracted, setContracted] = useState<Set<string>>(new Set());
-
-  const toggle = (id: string) =>
-    setContracted((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-
-  return (
-    <div>
-      <div className="flex items-end justify-between mb-3">
-        <div>
-          <h2 className="text-[14px] font-semibold text-white">Agregar personajes</h2>
-          <p className="text-[12px] text-gray-500 mt-0.5">
-            Otros perfiles públicos disponibles en Jalisco. Cobro mensual, cancelas cuando quieras.
-          </p>
-        </div>
-      </div>
-      <div className="grid grid-cols-3 gap-3">
-        {politicians.map((p) => (
-          <PoliticianCard
-            key={p.id}
-            politician={p}
-            contracted={contracted.has(p.id)}
-            onToggle={() => toggle(p.id)}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function PoliticianCard({ politician, contracted, onToggle }: { politician: Politician; contracted: boolean; onToggle: () => void }) {
-  const tierMeta = {
-    starter: { color: 'text-gray-400', border: 'border-[#232a3a]', label: 'Starter' },
-    pro: { color: 'text-violet-300', border: 'border-violet-500/40', label: 'Pro' },
-    enterprise: { color: 'text-amber-300', border: 'border-amber-500/40', label: 'Enterprise' },
-  }[politician.tier];
-  const sentimentUp = politician.sentiment >= 50;
-
-  return (
-    <div className={`card p-3.5 flex flex-col gap-3 transition-colors ${contracted ? 'border-emerald-500/40 bg-emerald-500/[0.03]' : 'hover:border-[#2b3345]'}`}>
-      <div className="flex items-start gap-3">
-        <div className="w-14 h-14 rounded-md overflow-hidden shrink-0 border border-white/10 bg-slate-800">
-          {politician.photoUrl ? (
-            <img src={politician.photoUrl} alt={politician.name} className="w-full h-full object-cover" />
+      <div className="card p-5 flex items-start gap-5">
+        <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0 border border-white/10 bg-slate-800">
+          {active.candidate.photoUrl ? (
+            <img src={active.candidate.photoUrl} alt={active.candidate.name} className="w-full h-full object-cover" />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-white text-lg font-bold bg-slate-700">
-              {politician.initials}
+            <div
+              className="w-full h-full flex items-center justify-center text-white text-2xl font-black"
+              style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #0891b2 100%)' }}
+            >
+              {active.candidate.photoInitials}
             </div>
           )}
         </div>
         <div className="flex-1 min-w-0">
-          <span className={`text-[9px] font-semibold px-1.5 py-0.5 rounded border uppercase tracking-wider ${tierMeta.color} ${tierMeta.border} bg-white/[0.02]`}>
-            {tierMeta.label}
-          </span>
-          <h3 className="text-white text-[13.5px] font-semibold leading-tight mt-1.5 truncate">{politician.name}</h3>
-          <p className="text-[11px] text-gray-500 leading-tight mt-0.5 truncate">{politician.role}</p>
-          <div className="flex items-center gap-1.5 mt-1">
-            <span className="w-1.5 h-1.5 rounded-full" style={{ background: politician.partyColor }} />
-            <span className="text-[10px] text-gray-500">{politician.party}</span>
+          <h3 className="text-white text-lg font-bold leading-tight">{active.candidate.name}</h3>
+          <p className="text-gray-400 text-[13px]">{active.candidate.role}</p>
+          <div className="flex items-center gap-3 mt-2 text-[11px] text-gray-500">
+            <span>{active.candidate.coalicion}</span>
+            <span>·</span>
+            <span>{active.candidate.eleccion}</span>
+            <span>·</span>
+            <span className="text-red-400">{active.candidate.diasParaEleccion} días para elección</span>
+          </div>
+          <div className="grid grid-cols-3 gap-3 mt-4">
+            <MiniStat label="Alertas activas" value={active.alerts.length.toString()} tone="orange" />
+            <MiniStat label="Tema mejor evaluado" value={bestTopic.name} tone="emerald" />
+            <MiniStat label="Tema con más riesgo" value={worstTopic.name} tone="red" />
           </div>
         </div>
       </div>
+    </div>
+  );
+}
 
-      <div className="grid grid-cols-2 gap-2 py-2 border-y border-[#1a1f2b]">
-        <div>
-          <p className="text-[9px] text-gray-500 uppercase tracking-wider">Menciones/día</p>
-          <p className="text-white text-[14px] font-bold mt-0.5 flex items-center gap-1">
-            <HiUsers size={12} className="text-gray-500" />
-            {politician.mentionsDay.toLocaleString()}
-          </p>
-        </div>
-        <div>
-          <p className="text-[9px] text-gray-500 uppercase tracking-wider">Sentimiento</p>
-          <p className={`text-[14px] font-bold mt-0.5 flex items-center gap-1 ${sentimentUp ? 'text-emerald-400' : 'text-red-400'}`}>
-            {sentimentUp ? <HiArrowTrendingUp size={12} /> : <HiArrowTrendingDown size={12} />}
-            {politician.sentiment}%
-          </p>
-        </div>
+function MiniStat({ label, value, tone }: { label: string; value: string; tone: 'emerald' | 'red' | 'orange' }) {
+  const color = tone === 'emerald' ? 'text-emerald-400' : tone === 'red' ? 'text-red-400' : 'text-orange-400';
+  return (
+    <div className="bg-[#0f131c] border border-[#232a3a] rounded-md px-3 py-2">
+      <p className="text-[10px] text-gray-500 uppercase tracking-wider">{label}</p>
+      <p className={`text-[13px] font-semibold mt-0.5 truncate ${color}`}>{value}</p>
+    </div>
+  );
+}
+
+function Switcher({ activeSlug }: { activeSlug: string }) {
+  const navigate = useNavigate();
+  const { slug: currentSlug } = useParams<{ slug: string }>();
+  const currentPath = window.location.pathname.split('/').slice(3).join('/') || '';
+
+  const goToProfile = (newSlug: string) => {
+    const target = currentSlug ? currentPath : '';
+    navigate(target ? `/c/${newSlug}/${target}` : `/c/${newSlug}`);
+  };
+
+  return (
+    <div>
+      <div className="flex items-baseline justify-between mb-3">
+        <h2 className="text-[14px] font-semibold text-white">Cambiar a otro candidato</h2>
+        <span className="text-[11px] text-gray-500">
+          {profiles.length} personajes disponibles
+        </span>
       </div>
+      <div className="grid grid-cols-3 gap-3">
+        {profiles.map((p) => {
+          const isActive = p.slug === activeSlug;
+          const worstTopic = p.topics.reduce((a, b) => (a.sentiment < b.sentiment ? a : b));
+          const sentimentUp = worstTopic.sentiment >= 0;
+          return (
+            <div
+              key={p.slug}
+              className={`card p-4 flex flex-col gap-3 transition-colors ${
+                isActive ? 'border-emerald-500/40 bg-emerald-500/[0.03]' : 'hover:border-violet-500/30'
+              }`}
+            >
+              <div className="flex items-start gap-3">
+                <div className="w-14 h-14 rounded-md overflow-hidden shrink-0 border border-white/10 bg-slate-800">
+                  {p.candidate.photoUrl ? (
+                    <img src={p.candidate.photoUrl} alt={p.candidate.name} className="w-full h-full object-cover" />
+                  ) : (
+                    <div
+                      className="w-full h-full flex items-center justify-center text-white text-lg font-black"
+                      style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #0891b2 100%)' }}
+                    >
+                      {p.candidate.photoInitials}
+                    </div>
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  {isActive && (
+                    <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded border uppercase tracking-wider text-emerald-300 border-emerald-500/40 bg-emerald-500/10 inline-block mb-1">
+                      Actual
+                    </span>
+                  )}
+                  <h3 className="text-white text-[14px] font-semibold leading-tight truncate">{p.candidate.name}</h3>
+                  <p className="text-[11px] text-gray-500 leading-tight mt-0.5 truncate">{p.candidate.role}</p>
+                  <p className="text-[10px] text-gray-500 mt-1">
+                    {p.candidateScope.area} · {p.candidate.coalicion}
+                  </p>
+                </div>
+              </div>
 
-      <div className="flex items-end justify-between gap-2">
-        <div>
-          <p className="text-white text-[17px] font-bold leading-none">
-            ${politician.pricePerMonth.toLocaleString()}
-            <span className="text-[11px] text-gray-500 font-normal ml-0.5">/mes</span>
-          </p>
-          <p className="text-[10px] text-gray-500 mt-1">MXN · factura mensual</p>
-        </div>
-        <button
-          onClick={onToggle}
-          className={`px-3 py-1.5 rounded-md text-xs font-semibold whitespace-nowrap transition-colors ${
-            contracted
-              ? 'bg-emerald-500/15 border border-emerald-500/40 text-emerald-300'
-              : 'bg-violet-600 text-white hover:bg-violet-500'
-          }`}
-        >
-          {contracted ? (
-            <span className="flex items-center gap-1"><HiCheck size={13} /> Agregado</span>
-          ) : (
-            'Agregar'
-          )}
-        </button>
+              <div className="grid grid-cols-2 gap-2 py-2 border-y border-[#1a1f2b]">
+                <div>
+                  <p className="text-[9px] text-gray-500 uppercase tracking-wider">Alertas activas</p>
+                  <p className="text-white text-[14px] font-bold mt-0.5 flex items-center gap-1">
+                    <HiUsers size={12} className="text-gray-500" />
+                    {p.alerts.length}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[9px] text-gray-500 uppercase tracking-wider">Tema en riesgo</p>
+                  <p className={`text-[13px] font-bold mt-0.5 flex items-center gap-1 truncate ${sentimentUp ? 'text-emerald-400' : 'text-red-400'}`}>
+                    {sentimentUp ? <HiArrowTrendingUp size={12} /> : <HiArrowTrendingDown size={12} />}
+                    <span className="truncate">{worstTopic.name}</span>
+                  </p>
+                </div>
+              </div>
+
+              <button
+                onClick={() => goToProfile(p.slug)}
+                disabled={isActive}
+                className={`w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-semibold transition-colors ${
+                  isActive
+                    ? 'bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 cursor-default'
+                    : 'bg-violet-600 text-white hover:bg-violet-500'
+                }`}
+              >
+                {isActive ? (
+                  <>
+                    <HiCheck size={13} />
+                    <span>Visualizando</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Ver dashboard</span>
+                    <HiArrowRight size={13} />
+                  </>
+                )}
+              </button>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

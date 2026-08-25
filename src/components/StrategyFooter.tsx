@@ -1,7 +1,14 @@
 import { Target, ChevronDown } from 'lucide-react';
-import { suggestedActions } from '../data/mockData';
+import { useActiveProfile } from '../hooks/useActiveProfile';
 
 export function StrategyFooter() {
+  const { suggestedActions, recommendations, topics } = useActiveProfile();
+
+  // Deriva copy dinámico: la recomendación más urgente y el peor tema
+  const topRec = recommendations.find((r) => r.urgency === 'alta') ?? recommendations[0];
+  const worstTopic = topics.reduce((a, b) => (a.sentiment < b.sentiment ? a : b));
+  const goalPct = 63;
+
   return (
     <div className="grid gap-2.5" style={{ gridTemplateColumns: '3fr 6fr 3fr' }}>
       <div className="card p-3">
@@ -11,10 +18,7 @@ export function StrategyFooter() {
           </div>
           <h3 className="text-[12px] font-semibold text-gray-200 truncate">Recomendación estratégica</h3>
         </div>
-        <p className="text-[11px] text-gray-400 leading-relaxed">
-          Enfocar próximos mensajes en propuestas de movilidad sostenible y soluciones concretas. Evitar confrontación
-          directa y utilizar voceros técnicos.
-        </p>
+        <p className="text-[11px] text-gray-400 leading-relaxed">{topRec.summary}</p>
       </div>
 
       <div className="card p-3">
@@ -47,9 +51,10 @@ export function StrategyFooter() {
         </div>
         <div className="flex items-center gap-3">
           <p className="text-[11px] text-gray-400 leading-relaxed flex-1">
-            Reducir sentimiento negativo sobre transporte de 63% a menos de 45% y mantener momentum favorable.
+            Mejorar la percepción sobre <span className="text-gray-200 font-medium">{worstTopic.name.toLowerCase()}</span> y
+            mantener el momentum favorable en los demás temas.
           </p>
-          <GoalRing pct={63} />
+          <GoalRing pct={goalPct} />
         </div>
       </div>
     </div>
