@@ -118,7 +118,10 @@ function Switcher({ activeSlug }: { activeSlug: string }) {
           {profiles.length} personajes disponibles
         </span>
       </div>
-      <div className="grid grid-cols-3 gap-3">
+      <div
+        className="grid gap-3"
+        style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}
+      >
         {profiles.map((p) => {
           const isActive = p.slug === activeSlug;
           const worstTopic = p.topics.reduce((a, b) => (a.sentiment < b.sentiment ? a : b));
