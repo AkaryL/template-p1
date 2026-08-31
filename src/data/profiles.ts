@@ -782,10 +782,145 @@ const lauraPerez: Profile = {
 };
 
 // ═══════════════════════════════════════════════════════════════════
+// RICARDO MONREAL ÁVILA — Coordinador del Grupo Parlamentario de Morena
+// Cámara de Diputados · Presidente de JUCOPO
+// ═══════════════════════════════════════════════════════════════════
+const ricardoMonreal: Profile = {
+  slug: 'ricardo-monreal',
+  candidate: {
+    name: 'Ricardo Monreal Ávila',
+    role: 'Coordinador de MORENA · Cámara de Diputados',
+    verified: true,
+    coalicion: 'MORENA',
+    eleccion: 'Periodo legislativo 2024-2027',
+    diasParaEleccion: 620,
+    photoInitials: 'RM',
+    photoUrl: '/candidates/ricardo-monreal.jpg',
+  },
+  candidateScope: {
+    level: 'estatal',
+    area: 'Cámara de Diputados',
+    breakdownLabel: 'estados',
+  },
+  stateFocus: {
+    'Ciudad de México': 0.75,
+    'Zacatecas': 0.68,
+    'Estado de México': 0.55,
+    'Puebla': 0.42,
+    'Veracruz': 0.48,
+    'Morelos': 0.38,
+    'Hidalgo': 0.35,
+    'Guerrero': 0.32,
+    'Michoacán': 0.28,
+    'Jalisco': -0.12,
+    'Nuevo León': -0.28,
+    'Guanajuato': -0.18,
+    'Yucatán': -0.22,
+    'Chihuahua': -0.35,
+  },
+  topNews: [
+    { title: 'Noticieros Televisa: Monreal presenta agenda con 30 iniciativas prioritarias', source: 'Noticieros Televisa', tier: 'nacional-tv', time: '10:02 AM', sentiment: 'POSITIVA' },
+    { title: 'Reforma: Monreal impulsa regulación de inteligencia artificial en el nuevo periodo', source: 'Reforma', tier: 'nacional-print', time: '09:15 AM', sentiment: 'NEUTRAL' },
+    { title: 'La Crónica de Hoy detalla las 30 prioridades de Morena en San Lázaro', source: 'La Crónica de Hoy', tier: 'nacional-print', time: '08:40 AM', sentiment: 'POSITIVA' },
+  ],
+  allNews: [
+    { title: 'Noticieros Televisa: Monreal presenta agenda con 30 iniciativas prioritarias para el periodo', source: 'Noticieros Televisa', tier: 'nacional-tv', time: '10:02 AM', sentiment: 'POSITIVA', summary: 'Cobertura en horario estelar. El coordinador detalló cinco temas prioritarios, encabezados por la regulación de inteligencia artificial.' },
+    { title: 'TV Azteca abre noticiario con propuesta de Monreal sobre reelección de legisladores', source: 'Hechos AM · TV Azteca', tier: 'nacional-tv', time: '07:20 AM', sentiment: 'NEUTRAL', summary: 'Nota de dos minutos sobre la iniciativa que propone que los legisladores que busquen reelección no dejen su curul para hacer campaña.' },
+    { title: 'Reforma: Monreal impulsa regulación de inteligencia artificial como tema central', source: 'Reforma', tier: 'nacional-print', time: '09:15 AM', sentiment: 'NEUTRAL', summary: 'Análisis del posicionamiento del coordinador y la disputa por definir el marco regulatorio en México antes de que otros países marquen la pauta.' },
+    { title: 'El Universal: Monreal llama a la unidad nacional y al respeto a la ley', source: 'El Universal', tier: 'nacional-print', time: '06:45 AM', sentiment: 'POSITIVA', summary: 'Reportaje sobre el discurso del coordinador en San Lázaro donde defendió el marco institucional y destacó avances de la agenda legislativa.' },
+    { title: 'Milenio: Monreal entre los legisladores con mayor influencia del sexenio', source: 'Milenio', tier: 'nacional-print', time: '08:15 AM', sentiment: 'POSITIVA', summary: 'Última medición de percepción política lo coloca entre los operadores más relevantes de la relación Ejecutivo-Legislativo.' },
+    { title: 'La Crónica de Hoy detalla las 30 prioridades legislativas de MORENA', source: 'La Crónica de Hoy', tier: 'nacional-print', time: '08:40 AM', sentiment: 'POSITIVA', summary: 'Cobertura que profundiza en el listado: IA, migración, derechos, pensiones, reforma electoral y presupuesto 2026 encabezan la agenda.' },
+    { title: 'Infobae: Monreal detalla reformas en migración, derechos y pensiones', source: 'Infobae México', tier: 'regional', time: '09:15 AM', sentiment: 'POSITIVA', summary: 'Análisis del paquete de reformas anunciado por el coordinador para el periodo ordinario que inicia el 1 de septiembre.' },
+    { title: 'Foro académico UNAM analiza propuesta de regulación de IA de Monreal', source: 'Portal UNAM', tier: 'digital-medio', time: '06:20 AM', sentiment: 'NEUTRAL', summary: 'Especialistas discuten alcances y limitaciones del anteproyecto anunciado por el coordinador y profesor de la máxima casa de estudios.' },
+    { title: 'Influencer critica propuesta de Monreal sobre curul en campañas', source: '@politiblog · X', tier: 'influencer', time: '05:40 AM', sentiment: 'NEGATIVA', summary: 'Publicación de creador con 220k seguidores cuestiona la iniciativa como restricción al derecho político-electoral.' },
+  ],
+  topics: [
+    { name: 'Regulación de IA', mentions: 5820, sentiment: 68, positive: true },
+    { name: 'Agenda legislativa', mentions: 4230, sentiment: 62, positive: true },
+    { name: 'Reforma migratoria', mentions: 3480, sentiment: 55, positive: true },
+    { name: 'Reelección con curul', mentions: 2810, sentiment: -34, positive: false },
+    { name: 'Unidad de MORENA', mentions: 1920, sentiment: 48, positive: true },
+  ],
+  wordCloud: [
+    { text: 'agenda', value: 100, color: '#a855f7' },
+    { text: 'legislativa', value: 88, color: '#3b82f6' },
+    { text: 'iniciativas', value: 78, color: '#22c55e' },
+    { text: 'inteligencia', value: 68, color: '#3b82f6' },
+    { text: 'artificial', value: 62, color: '#3b82f6' },
+    { text: 'unidad', value: 55, color: '#22c55e' },
+    { text: 'diputados', value: 50, color: '#a855f7' },
+    { text: 'reformas', value: 48, color: '#eab308' },
+    { text: 'morena', value: 44, color: '#8b0000' },
+    { text: 'nación', value: 40, color: '#22c55e' },
+    { text: 'ley', value: 34, color: '#eab308' },
+    { text: 'migración', value: 30, color: '#3b82f6' },
+    { text: 'pensiones', value: 28, color: '#ec4899' },
+    { text: 'presupuesto', value: 26, color: '#f97316' },
+    { text: 'jucopo', value: 24, color: '#a855f7' },
+    { text: 'oposición', value: 20, color: '#f97316' },
+  ],
+  alerts: [
+    { id: 'alt-01', what: 'Menciones críticas por propuesta de reelección sin dejar curul', who: 'Oposición legislativa + medios digitales', risk: 'Medio · polariza la conversación política', time: 'Hace 15 min', severity: 'orange', recommendationId: 'rec-reeleccion' },
+    { id: 'alt-02', what: 'Video crítico sobre restricción electoral toma alcance en X', who: 'Creador @politiblog (220k seguidores)', risk: 'Medio · potencial viralización en 6h', time: 'Hace 42 min', severity: 'yellow', recommendationId: 'rec-video-critico' },
+    { id: 'alt-03', what: 'Bloque opositor anuncia contra-propuesta en San Lázaro', who: 'PAN, PRI y MC · coordinadores parlamentarios', risk: 'Bajo · disputa parlamentaria normal', time: 'Hace 1 h', severity: 'blue', recommendationId: 'rec-oposicion' },
+  ],
+  allAlerts: [
+    { id: 'alt-01', what: 'Menciones críticas por propuesta de reelección sin dejar curul (+35% en la última hora, 3,240 menciones)', who: 'Oposición legislativa + medios digitales especializados', risk: 'Medio · polariza la conversación política · escala a nivel académico', zone: 'Nacional', time: 'Hace 15 min', severity: 'orange', recommendationId: 'rec-reeleccion' },
+    { id: 'alt-02', what: 'Video crítico sobre restricción electoral: 15,800 views en 40 minutos', who: 'Creador @politiblog (220k seguidores) + réplicas en TikTok', risk: 'Medio · viralización probable en 6h', zone: 'Digital', time: 'Hace 42 min', severity: 'yellow', recommendationId: 'rec-video-critico' },
+    { id: 'alt-03', what: 'Bloque opositor anuncia contra-propuesta a la agenda de IA', who: 'PAN, PRI y MC · coordinadores parlamentarios · mañana 10:00 AM', risk: 'Bajo · disputa parlamentaria normal', zone: 'San Lázaro', time: 'Hace 1 h', severity: 'blue', recommendationId: 'rec-oposicion' },
+    { id: 'alt-04', what: 'Cobertura positiva de Reforma sobre propuesta de regulación de IA', who: 'Reforma + Milenio · sección Nación', risk: 'Bajo · oportunidad de amplificar mensaje regulatorio', zone: 'Nacional', time: 'Hace 2 h', severity: 'blue', recommendationId: 'rec-prensa-nacional' },
+    { id: 'alt-05', what: 'Cuadros medios de MORENA piden claridad sobre agenda de pensiones', who: 'Diputados y senadores del grupo parlamentario', risk: 'Medio · afecta narrativa de unidad interna', zone: 'MORENA', time: 'Hace 3 h', severity: 'yellow', recommendationId: 'rec-pensiones' },
+    { id: 'alt-06', what: 'Foro académico UNAM sobre IA alcanza 22k views en YouTube', who: 'Portal UNAM + réplicas de especialistas', risk: 'Bajo · oportunidad de posicionamiento técnico', zone: 'Digital', time: 'Hace 4 h', severity: 'blue', recommendationId: 'rec-academia' },
+  ],
+  recommendations: [
+    { id: 'rec-reeleccion', title: 'Modular narrativa sobre reelección sin dejar curul', category: 'crisis', urgency: 'alta', summary: 'La propuesta de que los legisladores no dejen su curul durante campañas de reelección está polarizando. Necesitamos contextualizar antes de que la oposición defina el marco.', actions: ['Publicar exposición de motivos completa con casos comparados internacionalmente', 'Rueda de prensa técnica con constitucionalistas aliados', 'Coordinar entrevistas con Milenio y El Universal para explicar el fondo', 'Preparar hilo en X con datos duros del ausentismo legislativo en campaña'], linkedAlertId: 'alt-01', timeframe: 'Próximas 6 horas' },
+    { id: 'rec-video-critico', title: 'Contención de video crítico sobre restricción electoral', category: 'crisis', urgency: 'alta', summary: 'Video de @politiblog acumula 15,800 views en 40 min. Réplicas comenzando en TikTok. Evitar respuesta directa que amplifique alcance.', actions: ['NO responder directamente al video (evitar Streisand effect)', 'Producir contenido propio con el marco jurídico de la iniciativa', 'Activar red de constitucionalistas aliados con contenido paralelo', 'Monitorear réplicas cada 30 minutos y reportar patrones'], linkedAlertId: 'alt-02', timeframe: 'Próximas 4 horas' },
+    { id: 'rec-oposicion', title: 'Anticipar respuesta a contra-propuesta opositora', category: 'competencia', urgency: 'media', summary: 'PAN, PRI y MC preparan contra-propuesta a la agenda de IA para mañana 10:00 AM. Necesitamos ocupar el ciclo mediático antes.', actions: ['Publicar versión ejecutiva de la propuesta de IA con embargo a las 8:00 AM', 'Convocar a reporteros de fuente parlamentaria con anticipación', 'Preparar respuesta anticipada punto por punto a los cuestionamientos esperados'], linkedAlertId: 'alt-03', timeframe: 'Mañana' },
+    { id: 'rec-prensa-nacional', title: 'Amplificar cobertura de Reforma y Milenio sobre IA', category: 'narrativa', urgency: 'baja', summary: 'Reforma y Milenio dieron cobertura positiva a la propuesta de regulación de IA. Momento oportuno para consolidar posicionamiento técnico.', actions: ['Compartir las notas en redes propias con quote seleccionada', 'Enviar agradecimiento privado y ofrecer entrevistas de seguimiento', 'Producir 3 piezas de contenido derivadas (video, carrusel, hilo con datos)'], linkedAlertId: 'alt-04', timeframe: 'Esta semana' },
+    { id: 'rec-pensiones', title: 'Blindar narrativa de unidad en torno a agenda de pensiones', category: 'narrativa', urgency: 'media', summary: 'Cuadros medios de MORENA piden claridad sobre la agenda de pensiones. Anticiparse antes de que escale a fricción pública.', actions: ['Agendar reunión privada del grupo parlamentario con exposición técnica', 'Publicar cronograma legislativo con hitos claros', 'Comunicado con respaldo de figuras nacionales del partido'], linkedAlertId: 'alt-05', timeframe: 'Próximas 48 horas' },
+    { id: 'rec-academia', title: 'Fortalecer diálogo con academia sobre IA', category: 'contenido', urgency: 'baja', summary: 'El foro académico UNAM alcanzó 22k views en YouTube. Oportunidad de sistematizar el diálogo con especialistas para robustecer la propuesta.', actions: ['Serie de mesas técnicas mensuales con universidades', 'Publicar borrador abierto a comentarios de la comunidad académica', 'Alianzas con think tanks especializados en tecnología'], linkedAlertId: 'alt-06', timeframe: 'Próximo mes' },
+  ],
+  suggestedActions: [
+    { title: 'Publicar exposición de motivos completa', time: 'Hoy · 12:00 PM' },
+    { title: 'Rueda de prensa con constitucionalistas', time: 'Hoy · 02:00 PM' },
+    { title: 'Coordinar mesa técnica con UNAM', time: 'Hoy · 04:00 PM' },
+    { title: 'Monitoreo de menciones en X y TikTok', time: 'Continuo' },
+  ],
+  recentMentions: [
+    { user: '@constitucionalistas', platform: 'x', text: 'Interesante la propuesta de @ricardomonreal sobre curul en campañas. Hay que analizarla a fondo.', sentiment: 'neutral', time: 'Hace 3 min', engagement: 234 },
+    { user: 'Ana Cristina Salcedo', platform: 'facebook', text: 'Excelente el trabajo del coordinador Monreal impulsando la regulación de IA. México necesita esa discusión.', sentiment: 'positivo', time: 'Hace 8 min', engagement: 189 },
+    { user: '@analista_pol', platform: 'x', text: 'Monreal marca la agenda legislativa del sexenio con 30 iniciativas. Habrá que ver cuáles pasan.', sentiment: 'neutral', time: 'Hace 12 min', engagement: 156 },
+    { user: '@morenistadf', platform: 'x', text: 'Gracias @ricardomonreal por priorizar la agenda de derechos y pensiones. Con la 4T avanzamos.', sentiment: 'positivo', time: 'Hace 18 min', engagement: 421 },
+    { user: 'Roberto Preciado', platform: 'facebook', text: 'La iniciativa sobre reelección sin dejar curul es cuestionable jurídicamente. Restringe derechos.', sentiment: 'negativo', time: 'Hace 24 min', engagement: 830 },
+    { user: '@lorena_reportera', platform: 'instagram', text: 'Cobertura del foro académico UNAM sobre IA con Monreal: 500 asistentes.', sentiment: 'positivo', time: 'Hace 32 min', engagement: 692 },
+    { user: '@encuestas_mx', platform: 'x', text: 'Encuesta ubica a Monreal como el operador político más relevante del sexenio.', sentiment: 'positivo', time: 'Hace 41 min', engagement: 567 },
+    { user: 'Enrique Villaseñor', platform: 'facebook', text: 'Ojalá que la agenda de 30 iniciativas no se quede en anuncio. Hay que ver resultados.', sentiment: 'neutral', time: 'Hace 55 min', engagement: 98 },
+  ],
+  sentimentByArea: [
+    { area: 'Ciudad de México',   positive: 72, neutral: 18, negative: 10, mentions: 12820, trend: '+3.8 pts' },
+    { area: 'Zacatecas',          positive: 78, neutral: 14, negative: 8,  mentions: 4210,  trend: '+4.5 pts' },
+    { area: 'Estado de México',   positive: 65, neutral: 22, negative: 13, mentions: 8420,  trend: '+2.6 pts' },
+    { area: 'Veracruz',           positive: 62, neutral: 24, negative: 14, mentions: 3820,  trend: '+2.1 pts' },
+    { area: 'Puebla',             positive: 58, neutral: 26, negative: 16, mentions: 2950,  trend: '+1.5 pts' },
+    { area: 'Guerrero',           positive: 55, neutral: 27, negative: 18, mentions: 2210,  trend: '+1.2 pts' },
+    { area: 'Jalisco',            positive: 42, neutral: 30, negative: 28, mentions: 3540,  trend: '-1.4 pts' },
+    { area: 'Nuevo León',         positive: 38, neutral: 32, negative: 30, mentions: 2840,  trend: '-2.1 pts' },
+  ],
+  sentimentByTopic: [
+    { topic: 'Regulación de IA', positive: 68, neutral: 22, negative: 10 },
+    { topic: 'Reforma migratoria', positive: 62, neutral: 25, negative: 13 },
+    { topic: 'Pensiones', positive: 58, neutral: 24, negative: 18 },
+    { topic: 'Unidad de MORENA', positive: 55, neutral: 28, negative: 17 },
+    { topic: 'Presupuesto 2026', positive: 52, neutral: 26, negative: 22 },
+    { topic: 'Reelección sin curul', positive: 28, neutral: 30, negative: 42 },
+  ],
+};
+
+// ═══════════════════════════════════════════════════════════════════
 // EXPORTS
 // ═══════════════════════════════════════════════════════════════════
 
-export const profiles: Profile[] = [esthela, torres, arambula, meryPozos, lauraPerez];
+export const profiles: Profile[] = [esthela, torres, arambula, meryPozos, lauraPerez, ricardoMonreal];
 
 export const DEFAULT_SLUG = 'esthela';
 
