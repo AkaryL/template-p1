@@ -917,10 +917,145 @@ const ricardoMonreal: Profile = {
 };
 
 // ═══════════════════════════════════════════════════════════════════
+// ISMAEL BURGUEÑO RUIZ — Alcalde con licencia · Aspirante a Gubernatura BC
+// MORENA · Presidente Municipal de Tijuana 2024-2027 (con licencia desde jun 2026)
+// ═══════════════════════════════════════════════════════════════════
+const ismaelBurgueno: Profile = {
+  slug: 'burgueno',
+  candidate: {
+    name: 'Ismael Burgueño Ruiz',
+    role: 'Alcalde de Tijuana (con licencia) · Aspirante a Gubernatura BC',
+    verified: true,
+    coalicion: 'MORENA · PVEM · PT',
+    eleccion: 'Gubernatura BC 2027',
+    diasParaEleccion: 305,
+    photoInitials: 'IB',
+    photoUrl: '/candidates/ismael-burgueno.jpg',
+  },
+  candidateScope: {
+    level: 'estatal',
+    area: 'Baja California',
+    breakdownLabel: 'municipios',
+  },
+  stateFocus: {
+    'Baja California': 0.85,
+    'Baja California Sur': 0.55,
+    'Sonora': 0.42,
+    'Sinaloa': 0.38,
+    'Chihuahua': 0.28,
+    'Nayarit': 0.32,
+    'Jalisco': 0.18,
+    'Ciudad de México': 0.35,
+    'Estado de México': 0.22,
+    'Coahuila': -0.05,
+    'Durango': 0.12,
+    'Nuevo León': -0.22,
+    'Yucatán': -0.32,
+    'Guanajuato': -0.28,
+  },
+  topNews: [
+    { title: 'Noticieros Televisa: Burgueño formaliza aspiración a la gubernatura de BC', source: 'Noticieros Televisa', tier: 'nacional-tv', time: '10:02 AM', sentiment: 'POSITIVA' },
+    { title: 'Reforma cuestiona uso de infraestructura municipal en precampaña de Burgueño', source: 'Reforma', tier: 'nacional-print', time: '09:15 AM', sentiment: 'NEGATIVA' },
+    { title: 'Frontera reporta respaldo empresarial a plan de seguridad de Tijuana', source: 'Frontera · El Universal BC', tier: 'regional', time: '08:40 AM', sentiment: 'POSITIVA' },
+  ],
+  allNews: [
+    { title: 'Noticieros Televisa: Burgueño formaliza aspiración a la gubernatura de BC', source: 'Noticieros Televisa', tier: 'nacional-tv', time: '10:02 AM', sentiment: 'POSITIVA', summary: 'Cobertura en horario estelar. El alcalde con licencia se registró en el proceso interno para la Coordinación Estatal de Defensa de la 4T en Baja California.' },
+    { title: 'TV Azteca abre noticiario con recorrido de Burgueño en Mexicali', source: 'Hechos AM · TV Azteca', tier: 'nacional-tv', time: '07:20 AM', sentiment: 'POSITIVA', summary: 'Nota de dos minutos sobre el arranque de precampaña con reuniones con militancia en la capital del estado.' },
+    { title: 'Reforma cuestiona uso de infraestructura municipal en precampaña', source: 'Reforma', tier: 'nacional-print', time: '09:15 AM', sentiment: 'NEGATIVA', summary: 'Investigación cuestiona si programas municipales impulsados antes de la licencia han servido como plataforma para posicionamiento personal.' },
+    { title: 'El Universal: Burgueño destaca inversión de 1,970 mdp en seguridad', source: 'El Universal', tier: 'nacional-print', time: '06:45 AM', sentiment: 'POSITIVA', summary: 'Reportaje sobre el aumento del doble en el presupuesto de seguridad municipal como carta de presentación en su aspiración estatal.' },
+    { title: 'Milenio: Burgueño lidera preferencia en encuesta interna de MORENA-BC', source: 'Milenio', tier: 'nacional-print', time: '08:15 AM', sentiment: 'POSITIVA', summary: 'Última medición interna del partido lo coloca 6 puntos arriba entre aspirantes al proceso de selección estatal.' },
+    { title: 'Frontera: empresarios respaldan continuidad del plan de seguridad', source: 'Frontera · El Universal BC', tier: 'regional', time: '08:40 AM', sentiment: 'POSITIVA', summary: 'Cámaras empresariales de Tijuana reconocen la baja de 18% en delitos de alto impacto durante su primer año de gobierno.' },
+    { title: 'Zeta cuestiona resultados reales del programa "Tijuana Ciudad Limpia"', source: 'Semanario Zeta', tier: 'regional', time: '09:15 AM', sentiment: 'NEGATIVA', summary: 'Reportaje señala que la percepción vecinal de limpieza en la ciudad no coincide con las cifras oficiales del programa.' },
+    { title: 'Portal Fronterizo publica declaración 3 de 3 completa de Burgueño', source: 'Portal Fronterizo', tier: 'digital-medio', time: '06:20 AM', sentiment: 'POSITIVA', summary: 'El aspirante publicó de forma proactiva sus declaraciones patrimoniales, fiscales y de intereses completas.' },
+    { title: 'Influencer viraliza crítica a licencia municipal de Burgueño', source: '@bc_critico · X', tier: 'influencer', time: '05:40 AM', sentiment: 'NEGATIVA', summary: 'Publicación de creador con 130k seguidores cuestiona el momento y los tiempos de la licencia municipal solicitada.' },
+  ],
+  topics: [
+    { name: 'Seguridad municipal', mentions: 5820, sentiment: 66, positive: true },
+    { name: 'Obra pública', mentions: 3480, sentiment: 62, positive: true },
+    { name: 'Aspiración a gubernatura', mentions: 4230, sentiment: 52, positive: true },
+    { name: 'Manejo de licencia', mentions: 2810, sentiment: -38, positive: false },
+    { name: 'Finanzas y deuda cero', mentions: 1920, sentiment: 71, positive: true },
+  ],
+  wordCloud: [
+    { text: 'seguridad', value: 100, color: '#22c55e' },
+    { text: 'tijuana', value: 88, color: '#a855f7' },
+    { text: 'obras', value: 78, color: '#22c55e' },
+    { text: 'gubernatura', value: 68, color: '#3b82f6' },
+    { text: 'inversión', value: 62, color: '#22c55e' },
+    { text: 'baja california', value: 55, color: '#a855f7' },
+    { text: 'ciudadanos', value: 50, color: '#eab308' },
+    { text: 'morena', value: 48, color: '#8b0000' },
+    { text: 'compromiso', value: 44, color: '#22c55e' },
+    { text: 'municipal', value: 40, color: '#3b82f6' },
+    { text: 'infraestructura', value: 34, color: '#22c55e' },
+    { text: 'transparencia', value: 30, color: '#eab308' },
+    { text: 'frontera', value: 28, color: '#a855f7' },
+    { text: 'trabajo', value: 26, color: '#22c55e' },
+    { text: 'licencia', value: 24, color: '#f97316' },
+    { text: 'proyecto', value: 20, color: '#3b82f6' },
+  ],
+  alerts: [
+    { id: 'alt-01', what: 'Menciones críticas por manejo de licencia municipal para precampaña', who: 'Cuentas de oposición + medios digitales', risk: 'Medio · afecta narrativa de institucionalidad', time: 'Hace 15 min', severity: 'orange', recommendationId: 'rec-licencia' },
+    { id: 'alt-02', what: 'Video crítico sobre uso de infraestructura municipal toma alcance', who: 'Creador @bc_critico (130k seguidores)', risk: 'Medio · potencial viralización en 6h', time: 'Hace 42 min', severity: 'yellow', recommendationId: 'rec-video-critico' },
+    { id: 'alt-03', what: 'Rival interno de MORENA-BC anuncia recorrido en Mexicali', who: 'Aspirante rival · mañana 6:00 PM en Mexicali', risk: 'Bajo · disputa de agenda mediática', time: 'Hace 1 h', severity: 'blue', recommendationId: 'rec-competencia' },
+  ],
+  allAlerts: [
+    { id: 'alt-01', what: 'Menciones críticas por manejo de licencia municipal (+32% en la última hora, 2,180 menciones)', who: 'Cuentas de oposición (PAN-BC) + medios digitales fronterizos', risk: 'Medio · afecta narrativa de institucionalidad y ética pública', zone: 'Baja California', time: 'Hace 15 min', severity: 'orange', recommendationId: 'rec-licencia' },
+    { id: 'alt-02', what: 'Video crítico sobre uso de infraestructura municipal: 9,800 views en 40 minutos', who: 'Creador @bc_critico (130k seguidores) + réplicas en TikTok', risk: 'Medio · viralización probable en 6h', zone: 'Digital', time: 'Hace 42 min', severity: 'yellow', recommendationId: 'rec-video-critico' },
+    { id: 'alt-03', what: 'Rival interno de MORENA-BC anuncia recorrido masivo (~4,000 asistentes) en Mexicali', who: 'Aspirante rival del proceso interno · mañana 6:00 PM', risk: 'Bajo · disputa de agenda mediática del día', zone: 'Mexicali', time: 'Hace 1 h', severity: 'blue', recommendationId: 'rec-competencia' },
+    { id: 'alt-04', what: 'Semanario Zeta publica reportaje crítico sobre programa Tijuana Ciudad Limpia', who: 'Semanario Zeta · sección Ciudad', risk: 'Medio · afecta narrativa de resultados de gestión', zone: 'Tijuana', time: 'Hace 2 h', severity: 'yellow', recommendationId: 'rec-narrativa-obras' },
+    { id: 'alt-05', what: 'Cobertura positiva de Milenio y Frontera sobre presupuesto de seguridad', who: 'Milenio + Frontera · sección Estados', risk: 'Bajo · oportunidad de consolidar posicionamiento', zone: 'Nacional', time: 'Hace 3 h', severity: 'blue', recommendationId: 'rec-prensa-nacional' },
+    { id: 'alt-06', what: 'Cuadros medios de MORENA-BC piden claridad sobre proceso interno', who: 'Militancia y liderazgos regionales del partido', risk: 'Medio · afecta narrativa de unidad rumbo al 2027', zone: 'Baja California', time: 'Hace 4 h', severity: 'yellow', recommendationId: 'rec-unidad-morena' },
+  ],
+  recommendations: [
+    { id: 'rec-licencia', title: 'Blindar narrativa institucional sobre la licencia municipal', category: 'crisis', urgency: 'alta', summary: 'Menciones críticas sobre el manejo de la licencia municipal crecen +32% en 1 hora. Cuentas de oposición amplifican. Necesitamos contexto normativo claro antes de que escale.', actions: ['Publicar cronograma legal completo con fechas y fundamentos de la licencia', 'Rueda de prensa con el actual alcalde interino (Abdiel Gutiérrez) para transición pública', 'Coordinar entrevistas con Frontera y El Universal BC para explicar el fondo', 'Preparar hilo en X con datos duros de casos comparados en otros estados'], linkedAlertId: 'alt-01', timeframe: 'Próximas 6 horas' },
+    { id: 'rec-video-critico', title: 'Contención de video crítico sobre uso de infraestructura', category: 'crisis', urgency: 'alta', summary: 'Video de @bc_critico acumula 9,800 views en 40 min. Réplicas comenzando en TikTok. Evitar respuesta directa que amplifique alcance.', actions: ['NO responder directamente al video (evitar Streisand effect)', 'Producir contenido propio con resultados verificables de la gestión', 'Activar red de creadores fronterizos aliados con contenido paralelo', 'Monitorear réplicas cada 30 minutos y reportar patrones'], linkedAlertId: 'alt-02', timeframe: 'Próximas 4 horas' },
+    { id: 'rec-competencia', title: 'Contra-agenda por recorrido de rival en Mexicali', category: 'competencia', urgency: 'media', summary: 'Rival interno de MORENA-BC convoca recorrido masivo mañana 6:00 PM en Mexicali. Necesitamos ocupar el ciclo mediático del día en la capital.', actions: ['Agendar recorrido territorial paralelo en Ensenada o Tecate', 'Anunciar propuesta concreta de seguridad estatal con embargo periodístico para las 5:00 PM', 'Convocar a medios locales (Frontera, La Voz de la Frontera, Semanario Zeta) con anticipación'], linkedAlertId: 'alt-03', timeframe: 'Mañana' },
+    { id: 'rec-narrativa-obras', title: 'Responder a reportaje de Zeta sobre programa de limpieza', category: 'narrativa', urgency: 'media', summary: 'Semanario Zeta cuestiona resultados reales del programa Tijuana Ciudad Limpia. Anticiparse con datos y visitas de campo antes de que escale.', actions: ['Publicar dashboard abierto con indicadores del programa por colonia', 'Recorrido con periodistas a colonias con mayor avance', 'Comunicado de respuesta con datos técnicos y validación externa'], linkedAlertId: 'alt-04', timeframe: 'Próximas 48 horas' },
+    { id: 'rec-prensa-nacional', title: 'Amplificar cobertura positiva sobre seguridad', category: 'narrativa', urgency: 'baja', summary: 'Milenio y Frontera dieron cobertura positiva al aumento del presupuesto de seguridad. Oportunidad para consolidar posicionamiento a nivel nacional.', actions: ['Compartir las notas en redes propias con quote seleccionada', 'Enviar agradecimiento privado y ofrecer entrevistas de seguimiento', 'Producir 3 piezas derivadas: video con testimonios, carrusel con datos, hilo comparativo'], linkedAlertId: 'alt-05', timeframe: 'Esta semana' },
+    { id: 'rec-unidad-morena', title: 'Blindar narrativa de unidad interna en MORENA-BC', category: 'narrativa', urgency: 'media', summary: 'Cuadros medios del partido en BC piden claridad sobre el proceso interno. Anticiparse antes de que escale a fricción pública.', actions: ['Agendar reuniones privadas con liderazgos regionales', 'Publicar mensaje de unidad con respaldo de figuras nacionales', 'Coordinar comunicado con dirigencia estatal y nacional del partido'], linkedAlertId: 'alt-06', timeframe: 'Próximas 48 horas' },
+  ],
+  suggestedActions: [
+    { title: 'Publicar cronograma legal de licencia', time: 'Hoy · 12:00 PM' },
+    { title: 'Coordinar entrevista con Frontera', time: 'Hoy · 02:00 PM' },
+    { title: 'Contenido en Instagram sobre precampaña', time: 'Hoy · 04:00 PM' },
+    { title: 'Monitoreo de menciones en X y TikTok', time: 'Continuo' },
+  ],
+  recentMentions: [
+    { user: '@tj_ciudadano', platform: 'x', text: 'Buena la gestión de Burgueño en seguridad. Se nota la baja de delitos en Tijuana.', sentiment: 'positivo', time: 'Hace 3 min', engagement: 234 },
+    { user: 'María Fernanda Ruiz', platform: 'facebook', text: 'Cuestionable el timing de la licencia municipal para precampaña. Debería terminar su periodo.', sentiment: 'negativo', time: 'Hace 8 min', engagement: 189 },
+    { user: '@frontera_bc', platform: 'x', text: 'Burgueño se registra formalmente en el proceso interno de MORENA rumbo a la gubernatura BC.', sentiment: 'neutral', time: 'Hace 12 min', engagement: 156 },
+    { user: '@analista_bc', platform: 'x', text: 'El posicionamiento de Burgueño lo perfila como el candidato natural de la 4T en Baja California.', sentiment: 'positivo', time: 'Hace 18 min', engagement: 421 },
+    { user: 'Jorge Serna', platform: 'facebook', text: 'Video sobre uso de recursos municipales para precampaña genera dudas legítimas.', sentiment: 'negativo', time: 'Hace 24 min', engagement: 830 },
+    { user: '@rocio_reportera', platform: 'instagram', text: 'Cobertura del recorrido de Burgueño con empresarios de Ensenada: buena convocatoria.', sentiment: 'positivo', time: 'Hace 32 min', engagement: 692 },
+    { user: '@encuestas_norte', platform: 'x', text: 'Encuesta interna de MORENA-BC ubica a Burgueño 6 puntos arriba entre aspirantes.', sentiment: 'positivo', time: 'Hace 41 min', engagement: 567 },
+    { user: 'Ernesto Padilla', platform: 'facebook', text: 'Los resultados del programa Tijuana Ciudad Limpia habrá que verificarlos en campo.', sentiment: 'neutral', time: 'Hace 55 min', engagement: 98 },
+  ],
+  sentimentByArea: [
+    { area: 'Tijuana',        positive: 68, neutral: 20, negative: 12, mentions: 14820, trend: '+4.2 pts' },
+    { area: 'Mexicali',       positive: 55, neutral: 26, negative: 19, mentions: 6420,  trend: '+1.8 pts' },
+    { area: 'Ensenada',       positive: 62, neutral: 22, negative: 16, mentions: 3820,  trend: '+2.6 pts' },
+    { area: 'Playas de Rosarito', positive: 65, neutral: 22, negative: 13, mentions: 2440,  trend: '+3.1 pts' },
+    { area: 'Tecate',         positive: 58, neutral: 24, negative: 18, mentions: 1650,  trend: '+1.4 pts' },
+    { area: 'San Quintín',    positive: 52, neutral: 26, negative: 22, mentions: 1240,  trend: '+0.8 pts' },
+    { area: 'San Felipe',     positive: 61, neutral: 24, negative: 15, mentions: 780,   trend: '+2.2 pts' },
+    { area: 'Playas de Tijuana', positive: 72, neutral: 18, negative: 10, mentions: 2320, trend: '+4.8 pts' },
+  ],
+  sentimentByTopic: [
+    { topic: 'Seguridad', positive: 66, neutral: 22, negative: 12 },
+    { topic: 'Obra pública', positive: 62, neutral: 25, negative: 13 },
+    { topic: 'Finanzas municipales', positive: 71, neutral: 20, negative: 9 },
+    { topic: 'Precampaña', positive: 48, neutral: 28, negative: 24 },
+    { topic: 'Manejo de licencia', positive: 32, neutral: 30, negative: 38 },
+    { topic: 'Programas de limpieza', positive: 42, neutral: 32, negative: 26 },
+  ],
+};
+
+// ═══════════════════════════════════════════════════════════════════
 // EXPORTS
 // ═══════════════════════════════════════════════════════════════════
 
-export const profiles: Profile[] = [esthela, torres, arambula, meryPozos, lauraPerez, ricardoMonreal];
+export const profiles: Profile[] = [esthela, torres, arambula, meryPozos, lauraPerez, ricardoMonreal, ismaelBurgueno];
 
 export const DEFAULT_SLUG = 'esthela';
 
