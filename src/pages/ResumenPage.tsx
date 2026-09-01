@@ -5,7 +5,6 @@ import { SentimentLineChart } from '../components/SentimentLineChart';
 import { PlatformDonut } from '../components/PlatformDonut';
 import { TopNewsPanel } from '../components/TopNewsPanel';
 import { TopicsTable } from '../components/TopicsTable';
-import { MexicoMap } from '../components/MexicoMap';
 import { WordCloud } from '../components/WordCloud';
 import { ActiveAlerts } from '../components/ActiveAlerts';
 import { StrategyFooter } from '../components/StrategyFooter';
@@ -38,9 +37,8 @@ export function ResumenPage() {
         <TopNewsPanel />
       </div>
 
-      <div className="grid grid-cols-4 gap-2.5">
+      <div className="grid grid-cols-3 gap-2.5">
         <TopicsTable />
-        <MexicoMap />
         <WordCloud />
         <ActiveAlerts />
       </div>
